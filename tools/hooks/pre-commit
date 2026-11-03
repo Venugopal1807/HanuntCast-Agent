@@ -1,0 +1,6 @@
+#!/bin/sh
+# Optional local safeguard. Install with git config core.hooksPath tools/hooks.
+if [ -x .venv/Scripts/python.exe ]; then
+  exec .venv/Scripts/python.exe tools/release_audit.py --staged
+fi
+exec .venv/bin/python tools/release_audit.py --staged
