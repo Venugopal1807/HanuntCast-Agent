@@ -1,5 +1,9 @@
 # HauntCast AI
 
+Release preparation: deploy the anonymous public site in **mock mode only**. Paid narration now requires a private proxy access token and an existing durable cumulative synthesis ledger, in addition to JWT ownership. Read [DEPLOYMENT.md](DEPLOYMENT.md), [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md) and [RELEASE_COMMANDS.md](RELEASE_COMMANDS.md) before publishing. A real provider key alone does not enable playback. No release deployment or paid test was performed in this phase.
+
+The final visual pass adds original local SVG scenes for the entrance, portrait gallery, belfry and reckoning, plus dawn, cold-moonlight and violet-keeper ending treatments. Each ending highlights the actual belfry decision alongside the full remembered path. Personalized narration remains available in the complete transcript. Playback remains explicit: the waveform is labeled decorative, the initial voice wait has no invented percentage, and Replay keeps the existing completed-cache protection.
+
 # HanuntCast-Agent
 
 **BLACKTHORN HOUSE — Every ending has a voice.** A listening-first interactive horror demo built with React, TypeScript, Vite, Tailwind, and Python/FastAPI.
@@ -27,7 +31,7 @@ Inventory calls an undiscovered child “the girl”; studying the portrait stil
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for documentation findings, architecture and the live integration gate.
 
-For the complete conversation-to-code history, decisions, failures, verification evidence and continuation handoff, read [SESSION_REPORT.md](SESSION_REPORT.md).
+Read [HANDOFF.md](HANDOFF.md) for architecture, setup, deployment and continuation details, and [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) for a concise resumption guide. The local conversation history in SESSION_REPORT.md is private and excluded from normal staging.
 
 ## Run locally
 
