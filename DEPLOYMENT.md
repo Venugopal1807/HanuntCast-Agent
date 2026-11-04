@@ -14,8 +14,11 @@ What the container guarantees (verified locally in production mode, see VALIDATI
 
 ### Option A: Render (free web service, Docker)
 
-1. Create or sign in to a free Render account and connect the GitHub repository (`Venugopal1807/HanuntCast-Agent`). Render builds from a pushed branch, so the release changes must be committed and pushed first. That requires owner approval.
-2. New → Blueprint → select the repo/branch. `render.yaml` defines a free Docker web service with one instance, the `/healthz` check, and public mock settings.
+The repository is public and `main` contains the release, so Render can build it directly:
+
+**One-click:** [Deploy to Render](https://render.com/deploy?repo=https://github.com/Venugopal1807/HanuntCast-Agent) (sign in or create a free account, and keep the **Free** instance type; if Render asks for a payment method or any paid option, stop: that is outside the approved scope).
+
+1. The link opens a Blueprint for `render.yaml`: one free Docker web service, one instance, `/healthz` check, public mock settings, auto-deploy from `main`. Alternatively: Dashboard → New → Blueprint → public repository URL.
 3. When prompted for `JWT_SECRET`, paste a value generated **on your machine**. Don't use Render's "generate" option: its 44-character value fails the app's 48-character production minimum.
    `python -c "import secrets; print(secrets.token_urlsafe(48))"`
 4. Leave `ASSEMBLYAI_API_KEY`, `TTS_LIVE_ACCESS_TOKEN` and `TTS_BUDGET_PATH` **unset**.

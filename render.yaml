@@ -9,7 +9,8 @@ services:
     plan: free
     numInstances: 1          # Stories are process-local: exactly one instance, one worker.
     healthCheckPath: /healthz
-    autoDeploy: false
+    autoDeploy: true         # Pushing narration or fixes to the deployed branch redeploys automatically.
+    branch: main
     envVars:
       - key: DEPLOYMENT_MODE
         value: public

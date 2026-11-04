@@ -26,3 +26,4 @@ SESSION_REPORT.md
 .aws/
 .codex/
 .agents/
+.vite/

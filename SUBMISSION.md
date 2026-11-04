@@ -53,10 +53,44 @@ Recording rules: capture system audio, keep the labels visible, and show no `.en
 
 ## Submission links: fill before submitting
 
-- GitHub repository: `https://github.com/Venugopal1807/HanuntCast-Agent` (branch `release/hackathon-submission`; the latest changes are not yet committed or pushed)
+- GitHub repository: https://github.com/Venugopal1807/HanuntCast-Agent (public; `main` contains the release)
 - Public demo: `<PUBLIC_DEMO_URL>`
 - Demo video: `<DEMO_VIDEO_URL>`
 - Release commit: `<RELEASE_COMMIT_SHA>`
+
+## Deadline (checked 2026-11-04)
+
+The official listing ([Voice AI Space event page](https://www.voiceaispace.com/events/voice-hackathon-week-hack-into-speech)) gives **Tue 27 Oct 2026 19:00 PDT → Sat 7 Nov 2026 11:00 PDT**. US daylight saving time ends on 1 Nov, so "PDT" on 7 Nov is ambiguous: 11:00 PDT = 18:00 UTC = **23:30 IST, 7 Nov**; 11:00 PST = 00:30 IST, 8 Nov. **Use 23:30 IST on 7 Nov as the hard cutoff, and aim to submit on 6 Nov.** The submission form, judging criteria and social-bonus rules are announced on the organizer's Discord ([invite](https://discord.com/invite/P7sKN78EsE)), which this review could not access. Prizes per the Luma page: $2,000 across 20 winners.
+
+## Narration runbook (run when the AssemblyAI balance is confirmed)
+
+The approved scope is at most 246 requests and 139,550 characters (`all`), falling back to `chapters` (57 / 26,753), then `openings` (3 / 1,345). Each tier runs only if the balance covers it in full. From the repository root in PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe backend\tools\pregenerate_narration.py --tier all        # free dry run: must print 246 requests / 139550 characters
+$env:HAUNTCAST_PREGENERATE_APPROVED = 'all:139550'                                  # approves exactly this plan
+.\.venv\Scripts\python.exe backend\tools\pregenerate_narration.py --tier all --execute
+Remove-Item Env:HAUNTCAST_PREGENERATE_APPROVED
+.\.venv\Scripts\python.exe backend\tools\verify_narration.py --tier all             # every file, hash, voice and ending must pass
+node frontend\scripts\verify-narration-playback.mjs http://127.0.0.1:5173           # every file decodes in Edge
+```
+
+Each request is reserved first in `release-private/pregenerate-all.sqlite3` (ignored by Git). The run stops on the first error with no retry, and re-running skips finished files. A failed request's reservation is not refunded, so a resumed run needs a new, smaller approval and a new ledger path. Then record the demo with `node frontend\scripts\record-demo.mjs http://127.0.0.1:5173 frontend\test-results\demo <path-to-ffmpeg.exe>`. The final mode refuses to record if any scene would use mock audio.
+
+## Social posts (drafts; post from your own accounts)
+
+Confirm the organizer's handle on Discord before posting; it isn't verified here. AssemblyAI's handles are `@AssemblyAI` on X and AssemblyAI on LinkedIn.
+
+**X:**
+> I built BLACKTHORN HOUSE for #HackIntoSpeech: an interactive horror story told aloud by @AssemblyAI TTS-1 voices. Pick one of three narrators, make four choices, and hear one of 189 personalized endings. 🕯️
+> Demo: <PUBLIC_DEMO_URL> · Code: https://github.com/Venugopal1807/HanuntCast-Agent
+
+**LinkedIn:**
+> For AssemblyAI's Voice Hackathon Week, I built BLACKTHORN HOUSE: a listening-first interactive horror story narrated by AssemblyAI's new TTS-1 model.
+> Three narrators (George, Jane and Audrey) tell the same haunted house in very different voices. Four decisions shape the night, and every ending (there are 189 personalized epilogues) remembers your path.
+> Under the hood: React + FastAPI, a deterministic story engine, narration pre-generated with TTS-1 and verified against the exact scene text, plus a credit-safe live WebSocket streaming mode behind a spending ledger.
+> Demo: <PUBLIC_DEMO_URL> · Video: <DEMO_VIDEO_URL> · Code: https://github.com/Venugopal1807/HanuntCast-Agent
+> #AssemblyAI #VoiceAI #TextToSpeech #Hackathon
 
 ## Remaining manual actions
 
@@ -65,7 +99,7 @@ Recording rules: capture system audio, keep the labels visible, and show no `.en
 3. Create or sign in to a free Render (or Hugging Face) account and deploy using [DEPLOYMENT.md](DEPLOYMENT.md); set `JWT_SECRET`.
 4. Test the public URL on a desktop browser and on a real phone.
 5. Record the 60–90 s video, review it, upload it, and fill in the links above.
-6. Confirm the deadline, rules and eligibility on the official hackathon page. This review could not verify the November 7 cutoff from public sources.
+6. Read the submission form and rules on the organizer's Discord. Submit before **23:30 IST on 7 Nov** (aim for 6 Nov).
 
 ## Known limitations (stated honestly)
 
