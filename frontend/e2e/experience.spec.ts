@@ -7,6 +7,11 @@ async function enter(page: Page) {
   await expect(page.getByRole('heading', { name: 'Someone left the light on.' })).toBeVisible();
 }
 
+// Hides the shipped narration manifest so a test exercises the labeled mock fallback.
+async function withoutRecordings(page: Page) {
+  await page.route('**/narration/manifest.json', route => route.fulfill({ status: 404, body: '' }));
+}
+
 async function fits(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 }
@@ -46,9 +51,10 @@ for (const ending of ['liberation', 'escape', 'inheritance'] as const) {
     const title = ending === 'liberation' ? 'The house exhales.' : ending === 'escape' ? 'You make it out. Mostly.' : 'Welcome home, keeper.';
     await expect(page.getByRole('heading', { name: title })).toBeVisible();
     const narration = page.locator('.narrative');
-    // No pre-generated recording for this ending: the transcript opens so the ending can be read.
-    await expect(page.locator('.transcript')).toHaveAttribute('data-default', 'expanded');
-    await expect(page.locator('.transcript')).toHaveAttribute('open', '');
+    // The shipped manifest has a real AssemblyAI recording of this exact ending: the transcript stays collapsed.
+    await expect(page.locator('#narration')).toHaveAttribute('data-source', 'pregenerated');
+    await expect(page.locator('.transcript')).toHaveAttribute('data-default', 'collapsed');
+    await expect(page.locator('.transcript')).not.toHaveAttribute('open', '');
     await expect(page.locator('.journal')).not.toHaveAttribute('open', '');
     await expect(narration).toContainText("Eleanor's name");
     await expect(narration).toContainText(ending === 'escape' ? 'broke your promise' : 'kept your promise');
@@ -60,7 +66,7 @@ for (const ending of ['liberation', 'escape', 'inheritance'] as const) {
     await expect(page.locator('.turning-point strong')).toHaveText("Untie the girl's ribbon");
     // Closed details contents are present but not visible; count proves history persisted.
     await expect(page.locator('.journal li')).toHaveCount(7);
-    await expect(page.getByText('MOCK AUDIO', { exact: true })).toBeVisible(); await fits(page);
+    await expect(page.getByText('ASSEMBLYAI · PRE-GENERATED', { exact: true })).toBeVisible(); await fits(page);
     await page.locator('.transcript summary').click();
     await capture(page, info.outputPath(`ending-${ending}.png`));
     for (const width of [320, 375, 390, 768, 1024, 1440]) {
@@ -74,7 +80,29 @@ for (const ending of ['liberation', 'escape', 'inheritance'] as const) {
   });
 }
 
-test('real WAV playback, pause, replay, cancel and scene interruption', async ({ page }) => {
+test('pre-generated AssemblyAI MP3 plays for the exact scene and keeps controls in view', async ({ page }) => {
+  // Detached Audio elements are invisible to the DOM; record each one as it starts playing.
+  await page.addInitScript(() => {
+    const played: HTMLMediaElement[] = ((window as unknown as { __played: HTMLMediaElement[] }).__played = []);
+    const original = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function (this: HTMLMediaElement) { played.push(this); return original.call(this); };
+  });
+  await enter(page);
+  await expect(page.locator('#narration')).toHaveAttribute('data-source', 'pregenerated');
+  await expect(page.locator('.transcript')).toHaveAttribute('data-default', 'collapsed');
+  const play = page.getByRole('button', { name: '▶ Hear George narrate' });
+  await expect(play).toBeVisible();
+  await play.click();
+  await expect(page.getByRole('button', { name: 'Ⅱ Pause' })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __played: HTMLMediaElement[] }).__played.some(a => !a.paused && a.currentTime > 0.3 && a.src.includes('/narration/scenes/')))).toBe(true);
+  await page.getByRole('button', { name: /Take the brass key/ }).click();
+  await expect(page.getByRole('heading', { name: 'The house knows your name.' })).toBeVisible();
+  await expect(page.getByText('Stopped · Ready when you are')).toBeVisible();
+  await expect(page.getByRole('button', { name: '▶ Hear George narrate' })).toBeVisible();
+});
+
+test('mock fallback WAV playback, pause, replay, cancel and scene interruption', async ({ page }) => {
+  await withoutRecordings(page);
   await enter(page);
   await page.getByRole('link', { name: 'Listen ↓' }).click();
   await expect(page.getByRole('button', { name: '▶ Play demo audio' })).toBeInViewport();
@@ -131,6 +159,7 @@ test('keyboard entry, reduced motion and pending-navigation cancellation', async
 });
 
 test('listening hierarchy, collapsed details and persistent mobile controls', async ({ page }, info) => {
+  await withoutRecordings(page);
   await enter(page);
   await expect(page.locator('.narrator-bar')).toContainText('The Archivist');
   // Mock scene (no real narration): the story text is expanded and starts in the first viewport.

@@ -66,11 +66,11 @@ $env:JWT_SECRET = .\.venv\Scripts\python.exe -c "import secrets; print(secrets.t
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --port 8000 --workers 1
 ```
 
-## Status (2026-11-04)
+## Status (2026-11-05)
 
-- **Working:** full story on desktop and mobile, three narrators and endings, real AssemblyAI sample for the Medium (Audrey), labeled mock fallback everywhere else, and a hardened single-container build. See [VALIDATION.md](VALIDATION.md) for exact test results.
+- **Working:** full story on desktop and mobile, with three narrators and three endings. Every scene and all 189 personalized epilogues are narrated with real, pre-generated AssemblyAI-TTS-1 audio: 246 recordings, one per unique (narrator, text) pair, in George, Jane and Audrey's voices. The labeled mock fallback plays only if a recording can't be matched. Live at https://blackthorn-house.onrender.com in a hardened single-container build. See [VALIDATION.md](VALIDATION.md) for exact test results.
 - **Verified earlier with real credits (2026-10-29):** one HTTP synthesis (Audrey, 51 characters, 3.52 s WAV, the sample shipped here) and one WebSocket stream (27 PCM chunks played incrementally in the browser).
-- **Pending:** scene narration for all three voices (needs one approved pre-generation run), public deployment, demo video.
+- **Narration run (2026-11-05):** 246 HTTP requests and 139,550 characters, billed exactly as planned with no errors or retries. Every file is checked offline against its voice and text hash and decoded in Edge.
 - **Limits:** stories live in memory on one worker and expire after an hour; a restart or reload starts over. One scenario, four decisions.
 
 ## More

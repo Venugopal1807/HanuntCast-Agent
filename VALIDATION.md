@@ -1,3 +1,16 @@
+# Full AssemblyAI narration — 2026-11-05
+
+Approved run: `pregenerate_narration.py --tier all --execute` under `HAUNTCAST_PREGENERATE_APPROVED=all:139550`, with a fresh ledger in `release-private/` (not committed). The account balance read before the run was $49.99882; the run's estimated cost was about $2.09 at the published $15 per million characters.
+
+| Executed check | Result |
+| --- | --- |
+| Generation run | **246 requests sent, 139,550 characters billed** (as reported by the API), exit 0, no errors and no retries |
+| `verify_narration.py --tier all` | **246/246 verified**, no problems. Coverage: chapter 1: 3, chapter 2: 9, chapter 3: 27, chapter 4: 18, endings: 189. Voices: George 82, Jane 82, Audrey 82. Samples for all three narrators |
+| `verify-narration-playback.mjs` (headless Edge) | **246 files decoded**, 0 failures, about 8,197 s (2 h 17 min) of audio |
+| `python -m pytest backend/tests -q` | **451 passed, 1 skipped** |
+| `npm test` · `npm run typecheck` · `npm run lint` | **73 passed** · passed · passed |
+| `npx playwright test` | **18 passed** (desktop and mobile). The three ending routes now assert `data-source="pregenerated"`, the collapsed transcript and the **ASSEMBLYAI · PRE-GENERATED** label. A new test checks that the MP3 for the exact scene actually plays and that a choice stops it. The mock-player and listening-layout tests hide the manifest, so they still cover the labeled mock fallback |
+
 # Transcript visibility and live re-check — 2026-11-04 (later)
 
 Change: `frontend/src/Transcript.tsx`. When the current scene has **no** hash-matched AssemblyAI recording (mock fallback), the scene transcript now opens automatically and sits **above** the choices, so the story can always be read. When a recording exists, or in live mode, it starts collapsed. A reader's own toggle always wins for that scene; each new scene resets to its default. Opening the transcript never starts audio.

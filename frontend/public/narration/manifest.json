@@ -1,14 +1,1505 @@
 {
-  "version": 1,
   "model": "assemblyai-tts-1",
   "samples": {
+    "archivist": {
+      "characters": 433,
+      "file": "scenes/a569a225968ecd1d7fbc728fbe11aea6.mp3",
+      "generated": "2026-11-05",
+      "text": "Blackthorn House: unoccupied for forty years, according to the record. Yet a lamp burns upstairs. Your invitation bears tomorrow's date and your own handwriting. I would preserve that discrepancy. The door closes. A brass key, a girl's defaced portrait, small bare footprints in the dust. Behind the walls, something counts backward. 'Observe before you touch,' I tell you. A house is an archive. Someone has been removing the names.",
+      "voice": "aai-george"
+    },
     "medium": {
-      "file": "samples/medium-welcome.wav",
-      "voice": "aai-audrey",
-      "characters": 51,
-      "generated": "2026-10-29",
-      "text": "Welcome to Blackthorn House. Your story begins now."
+      "characters": 463,
+      "file": "scenes/6f0b976c53bed6694dca2c920627dca4.mp3",
+      "generated": "2026-11-05",
+      "text": "There is a child here. Blackthorn House has stood empty for forty years, but her waiting fills it. A lamp burns upstairs. Your invitation carries tomorrow's date, written in your own hand. 'Stay where you can hear me,' I whisper as the door closes. A brass key rests beside a girl's portrait; someone has wounded the paint where her name should be. Small bare footprints disturb the dust. Something counts backward in the walls. I feel her flinch at every number.",
+      "voice": "aai-audrey"
+    },
+    "skeptic": {
+      "characters": 449,
+      "file": "scenes/ee9b1a26637227f8175c2b6363fc9152.mp3",
+      "generated": "2026-11-05",
+      "text": "Working hypothesis: somebody wants to frighten you. Blackthorn House has been empty for forty years, but a lamp is on. Your invitation has tomorrow's date and your handwriting. A forgery, presumably. The door shuts. On the table are a brass key and a girl's portrait with the name scratched out; small bare footprints cross the dust. Something counts backward inside the walls. 'Pipes,' I say. 'Or a recording. We check the evidence, then we leave.'",
+      "voice": "aai-jane"
     }
   },
-  "scenes": {}
+  "scenes": {
+    "0018c00ecd772f90075a7ff2345e4a5bd6a6907da00ba2d60e5638a06c905670": {
+      "characters": 673,
+      "file": "scenes/0018c00ecd772f90075a7ff2345e4a5b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "04841068b7f42b55aae4153e5df72036e700fe99089d9a0d545ee497f330871a": {
+      "characters": 603,
+      "file": "scenes/04841068b7f42b55aae4153e5df72036.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "05492b38606d5c0cc0875437b3f51adcbe0c8df7d733d071a0125a88add1538e": {
+      "characters": 521,
+      "file": "scenes/05492b38606d5c0cc0875437b3f51adc.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "06538b76c7bc009e715b9bffa0d931b74f8751d90d0b0a75cd6a3d9f975fee4c": {
+      "characters": 595,
+      "file": "scenes/06538b76c7bc009e715b9bffa0d931b7.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "078dd4f46f903c38708d9462253025b7973fbce51437df2758ab536914d3ad7d": {
+      "characters": 489,
+      "file": "scenes/078dd4f46f903c38708d9462253025b7.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "099e359682e80523638ae276acac3f735dab1b9ad5b5ec41c47580d12108320e": {
+      "characters": 649,
+      "file": "scenes/099e359682e80523638ae276acac3f73.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "0c9b0c861ad27c68721d1b9f27c5f0151e6fb3886966d11b73514418edea3ee3": {
+      "characters": 505,
+      "file": "scenes/0c9b0c861ad27c68721d1b9f27c5f015.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "0cc1a9916e9adc63b225ee9bcc4a2a5617ad74e51ed55e37bb343ef1aa22d26a": {
+      "characters": 455,
+      "file": "scenes/0cc1a9916e9adc63b225ee9bcc4a2a56.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "0d429c665ab1fe9fc3413ed64d64a69138f000860f738cd6a2c8d152a5b3944d": {
+      "characters": 553,
+      "file": "scenes/0d429c665ab1fe9fc3413ed64d64a691.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "0d459a88fa07487d1ddfa1955174aa6ec081355eaed161cecef797fde5504655": {
+      "characters": 445,
+      "file": "scenes/0d459a88fa07487d1ddfa1955174aa6e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "0d50f568d2767c92f638c3d4e44ab48eb09689b04ed84523ffac7e0d603c98e0": {
+      "characters": 590,
+      "file": "scenes/0d50f568d2767c92f638c3d4e44ab48e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "0ec4c4d0328a07c42f31327143cd3c0ca04312ddd755b455cfeabf6794eb5e88": {
+      "characters": 480,
+      "file": "scenes/0ec4c4d0328a07c42f31327143cd3c0c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "1284eb79891e4a98f9253596cdc7e54e97f38d0b64cfec9dff63ad1cdf278041": {
+      "characters": 525,
+      "file": "scenes/1284eb79891e4a98f9253596cdc7e54e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "1417383aa5b9e08fc1079798027bc0dbf34f72e8bad75fd824227c7fef1d8c2b": {
+      "characters": 521,
+      "file": "scenes/1417383aa5b9e08fc1079798027bc0db.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "15590c436516b99344b662dceee2b35a6a1696f96022bd2174dd81adb8ec6a70": {
+      "characters": 670,
+      "file": "scenes/15590c436516b99344b662dceee2b35a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "15ab907d99473ae7f674018dfa8cc58b3f0c2fef240242e6934d1e3a7670e916": {
+      "characters": 601,
+      "file": "scenes/15ab907d99473ae7f674018dfa8cc58b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "1882ac039a085cfcf2b463f42ecdc80a79b394e6af6994cc76eaf2f4cc0374f5": {
+      "characters": 633,
+      "file": "scenes/1882ac039a085cfcf2b463f42ecdc80a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "189c9b5f81354e3670522cb13def8ed47584624a2b29da993cc7ca8f01246485": {
+      "characters": 415,
+      "file": "scenes/189c9b5f81354e3670522cb13def8ed4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "1938aa7d8e2b9b89ca9bb5ec4b9add1b3f39f73e36fc99756ef783c8c9304f42": {
+      "characters": 646,
+      "file": "scenes/1938aa7d8e2b9b89ca9bb5ec4b9add1b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "198c892b7be373b296b48281a7267a36f41159be5cd67175593302e7d24740fb": {
+      "characters": 574,
+      "file": "scenes/198c892b7be373b296b48281a7267a36.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "1aa2ab5bb6374c79ee9512bd8ceb4bb7bd9be7d317e0149a8f2af120fedfc3ad": {
+      "characters": 605,
+      "file": "scenes/1aa2ab5bb6374c79ee9512bd8ceb4bb7.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "1b0437cd042bdeb62138245f7ee11c05795636f675bc6fa8a8fa29286eb8a9a0": {
+      "characters": 579,
+      "file": "scenes/1b0437cd042bdeb62138245f7ee11c05.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "1bac057ac34f09f6367442bd683cd17e34d23a96bd4f0717d78896d2de6bf728": {
+      "characters": 623,
+      "file": "scenes/1bac057ac34f09f6367442bd683cd17e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "1c7d6c617f172bbb98bf8ac3d6473b448809e4473e9519aba9130d058ac3c659": {
+      "characters": 632,
+      "file": "scenes/1c7d6c617f172bbb98bf8ac3d6473b44.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "1c9d017891afbd809f2bf9d538d694efcee339297075fda876a34151d30fb8d6": {
+      "characters": 529,
+      "file": "scenes/1c9d017891afbd809f2bf9d538d694ef.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "1d3e585a2b7395960936e726834ae885a910e1b5e334f8459f79026b9a6e118b": {
+      "characters": 400,
+      "file": "scenes/1d3e585a2b7395960936e726834ae885.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "1d5d2205176052fcc53c7b1bfa975d45a20bdbb6cc4b6c1166bbadcfe5c31899": {
+      "characters": 570,
+      "file": "scenes/1d5d2205176052fcc53c7b1bfa975d45.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "1e6c5f617245cfc50c837c18995b81ca4ede19750e26f84ced2acc0d62916fce": {
+      "characters": 508,
+      "file": "scenes/1e6c5f617245cfc50c837c18995b81ca.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "20aa7b3b38050e6e321b4fda090515e2f7a23295e785fee39cc25397e46fbf83": {
+      "characters": 539,
+      "file": "scenes/20aa7b3b38050e6e321b4fda090515e2.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "21d834064d07cc8fd33270da6a362de670b32af1f069c42c8fbe171f62066bec": {
+      "characters": 530,
+      "file": "scenes/21d834064d07cc8fd33270da6a362de6.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "242cf9273faa39cdbf68e6f9c8b39141e72e26539cac5712a86ba932c4788712": {
+      "characters": 489,
+      "file": "scenes/242cf9273faa39cdbf68e6f9c8b39141.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "2494cd8aed4c64009dbe33ae84fd286929106dea924b33e4d81da2d39aea8f32": {
+      "characters": 493,
+      "file": "scenes/2494cd8aed4c64009dbe33ae84fd2869.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "259a759994581e01bdaf7ac7d08197353ec6f3b5da28f850e82d5362546fa7a7": {
+      "characters": 582,
+      "file": "scenes/259a759994581e01bdaf7ac7d0819735.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "26b9ed7bf0e77b60712704d16bbbf48616d79a32eb9e4563d51b6e6422cd18d0": {
+      "characters": 534,
+      "file": "scenes/26b9ed7bf0e77b60712704d16bbbf486.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "288fb89bb7f37cb0dde7c236a8fcc2766ea04eb3cf9b2f4114d1ab2bda7ba80d": {
+      "characters": 619,
+      "file": "scenes/288fb89bb7f37cb0dde7c236a8fcc276.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "28c866be6f1841473c2817b65edda5f442bb6618805c9e5ab95f0d0a576a718c": {
+      "characters": 590,
+      "file": "scenes/28c866be6f1841473c2817b65edda5f4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "2e7123bd88d770f10d9f78ead999ecef5917c2338d1f201840d86bed1b020d7e": {
+      "characters": 507,
+      "file": "scenes/2e7123bd88d770f10d9f78ead999ecef.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "2f5b5ba667ce5404521d133bbd3e4abbd20e0e1b28652f5a4e950c120b098f41": {
+      "characters": 393,
+      "file": "scenes/2f5b5ba667ce5404521d133bbd3e4abb.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "2fbfc44690fee47815ea365657b7f6d6bd117670325b548cea3588883f8c7c8e": {
+      "characters": 727,
+      "file": "scenes/2fbfc44690fee47815ea365657b7f6d6.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "30ad0ccb57603ec28f1e3d7e25c7b29047e3516bf587017b77dbd9ee13077905": {
+      "characters": 535,
+      "file": "scenes/30ad0ccb57603ec28f1e3d7e25c7b290.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "3109a80e46deba3e83b3758b00e83660f33d613405a17dccc4b1170d87958cd5": {
+      "characters": 534,
+      "file": "scenes/3109a80e46deba3e83b3758b00e83660.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "32f13939102223c5c67ffb061dd8d94e372e22b3f4f9845a26b3ec458a9e7f65": {
+      "characters": 397,
+      "file": "scenes/32f13939102223c5c67ffb061dd8d94e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "338f080ed61bbf14a253bcafbce13f6d5824a275a39a61d5b9f9324182af6998": {
+      "characters": 610,
+      "file": "scenes/338f080ed61bbf14a253bcafbce13f6d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "33a08ffe6886c2be5dbd6183e99a05faea83c1b3461a1ad50483d1ecdac8e958": {
+      "characters": 566,
+      "file": "scenes/33a08ffe6886c2be5dbd6183e99a05fa.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "36a1447decdaf5ccc728cf26f06feb7b1cc8625d3d753682152c12f95b2f5cb1": {
+      "characters": 509,
+      "file": "scenes/36a1447decdaf5ccc728cf26f06feb7b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "36cd1801a2bfd34859ddfbec94e6399d6dab5ecd83d6dddfab04bd55b3624676": {
+      "characters": 646,
+      "file": "scenes/36cd1801a2bfd34859ddfbec94e6399d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "377eee8de4ff230419b5cac34326fb1088f16b62a509cce1c7186d17e2d986df": {
+      "characters": 752,
+      "file": "scenes/377eee8de4ff230419b5cac34326fb10.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "378a3663b59d1db933d498e48bb5ec4fd0834224acebc26b15199d7d14e86894": {
+      "characters": 740,
+      "file": "scenes/378a3663b59d1db933d498e48bb5ec4f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "3825baff703af970e093062096d76893159b25e97e0caec508d57049c8b8e1b4": {
+      "characters": 733,
+      "file": "scenes/3825baff703af970e093062096d76893.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "3b1c920df98ab9b75d53b00b2506fbca826427d002c8c7fddfc137c88896db37": {
+      "characters": 608,
+      "file": "scenes/3b1c920df98ab9b75d53b00b2506fbca.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "3cd387169e2131cef703e270243a0c130499a3cc49da72a25895d7c58807050d": {
+      "characters": 620,
+      "file": "scenes/3cd387169e2131cef703e270243a0c13.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "3e7d9b4aa2b58ca198ce3c62d5d36b3bbb8f423b1b07910a3e818dadb186b788": {
+      "characters": 646,
+      "file": "scenes/3e7d9b4aa2b58ca198ce3c62d5d36b3b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "3f01a19766f2a71976d2d8905b2410317c2142052d3fe036ce29a364f1727cb5": {
+      "characters": 510,
+      "file": "scenes/3f01a19766f2a71976d2d8905b241031.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "3f0ed22c3dce350f429458af2cc37baeaead7abbf6489d023152787c777dd9cd": {
+      "characters": 700,
+      "file": "scenes/3f0ed22c3dce350f429458af2cc37bae.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "3fa9a7009d44c55ce6bba2eea13e21c2642272ef86575cbed4b0ab07020bf2b1": {
+      "characters": 491,
+      "file": "scenes/3fa9a7009d44c55ce6bba2eea13e21c2.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "3fb60f01ab110c635e97746436f2418c09951604ba3fb27b6e9c21704b5ab47a": {
+      "characters": 408,
+      "file": "scenes/3fb60f01ab110c635e97746436f2418c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "407c49c9ef4bf1586409f1595db91c160ef0ea231009ec5d92cb5af9e8b5fe73": {
+      "characters": 593,
+      "file": "scenes/407c49c9ef4bf1586409f1595db91c16.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "411702ab2b5c26905949ebf51acbb320f68404bd79efc89479d321be30fb3f94": {
+      "characters": 650,
+      "file": "scenes/411702ab2b5c26905949ebf51acbb320.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "428eac0d60f2b91521eb94c670755462b50965dfa666c765b06b643b8f67b3af": {
+      "characters": 570,
+      "file": "scenes/428eac0d60f2b91521eb94c670755462.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "435d5164c7ffc7b360c053adcb7377f3eef1fd4bc4680751e0df15297f40de04": {
+      "characters": 608,
+      "file": "scenes/435d5164c7ffc7b360c053adcb7377f3.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "44cb5ecba0f7ee5970f3768605ee9245351c92f52c55e37053c355a8f111f0b5": {
+      "characters": 426,
+      "file": "scenes/44cb5ecba0f7ee5970f3768605ee9245.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "464da60f6db7743076b59691c1ef2535f42e136648e343a014891b386f7432f5": {
+      "characters": 460,
+      "file": "scenes/464da60f6db7743076b59691c1ef2535.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "47160a102030375b36e343fc8c7caea286075f5bd26f135394ac1820f9b59b97": {
+      "characters": 756,
+      "file": "scenes/47160a102030375b36e343fc8c7caea2.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "4863965642cd0299a364a78f2c99337f8f5f04dd896fb392d8adfe0348fa19bb": {
+      "characters": 611,
+      "file": "scenes/4863965642cd0299a364a78f2c99337f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "49f0f2fed13f74f102795fbb914113dfa11db6aaaaf997603ef6e62afb1d2122": {
+      "characters": 606,
+      "file": "scenes/49f0f2fed13f74f102795fbb914113df.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "49f1736d512a58e0a486491fbacfb2f4a16980cdfdd90b187f891e11b930d519": {
+      "characters": 443,
+      "file": "scenes/49f1736d512a58e0a486491fbacfb2f4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "4a4418ce07a632ae5d5e651fcdd8a7e43d67e5c134bfc6405f4701bf942d42ad": {
+      "characters": 507,
+      "file": "scenes/4a4418ce07a632ae5d5e651fcdd8a7e4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "4b5471b6bab7ec669a706ef01e9b7903a68ac51cc698571f1943b16591ae35ad": {
+      "characters": 491,
+      "file": "scenes/4b5471b6bab7ec669a706ef01e9b7903.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "4b7801519eaf0a3fe398a4924325962dc5926f6ce7c360d764f5e91d02e35a73": {
+      "characters": 571,
+      "file": "scenes/4b7801519eaf0a3fe398a4924325962d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "4bd18f7ccbcd1a3e6bd3ab4488987eadca901d18a1f3a9234453a91f3cbcc37c": {
+      "characters": 401,
+      "file": "scenes/4bd18f7ccbcd1a3e6bd3ab4488987ead.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "4f0489f30e00fbe274a9f69a7ec3367a4f29b98e1345f13f3d6d59178ac1b3ee": {
+      "characters": 616,
+      "file": "scenes/4f0489f30e00fbe274a9f69a7ec3367a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "4f098ebe6da34a7f74b95d334cf612c4d5ec68bbfab1edf13de869f0a9047d6d": {
+      "characters": 570,
+      "file": "scenes/4f098ebe6da34a7f74b95d334cf612c4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "4fc054319a1e6d9bda27a36718421da9fc0fa7ec0518a9cc7765ce386ea28a76": {
+      "characters": 475,
+      "file": "scenes/4fc054319a1e6d9bda27a36718421da9.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "51f76cc96f8cc73f4e6424e0aad1fc27e097b936502c11e697c286ca269576f0": {
+      "characters": 531,
+      "file": "scenes/51f76cc96f8cc73f4e6424e0aad1fc27.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "521cc6cf102443e2bc0761c005a20b7dc2fb68c0b8d9623a548222a051b7825f": {
+      "characters": 615,
+      "file": "scenes/521cc6cf102443e2bc0761c005a20b7d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "52b8cf1e206dc225d2e5170efebe78d4fd431ffa7696e078accf997ec6c41fdf": {
+      "characters": 629,
+      "file": "scenes/52b8cf1e206dc225d2e5170efebe78d4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "542596d2fde9f7121accca5f475bac9413ff4e5f0a4306863a273a4d959cd02d": {
+      "characters": 719,
+      "file": "scenes/542596d2fde9f7121accca5f475bac94.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "54325f39c308bc48997b5eaa349af721ffc508346ad111a34394b785ea841707": {
+      "characters": 576,
+      "file": "scenes/54325f39c308bc48997b5eaa349af721.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "55e382563411db8eab6be5cc2c4301c48be7a4c98df59a9f1d34c57792119adb": {
+      "characters": 419,
+      "file": "scenes/55e382563411db8eab6be5cc2c4301c4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "570744f1ebe360d2e40b658b47fea63a4ba4e1e873c330a7967d34c69468e408": {
+      "characters": 526,
+      "file": "scenes/570744f1ebe360d2e40b658b47fea63a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "578532f552e2e171e99a02900a6530b545773bbfc084b47f2b2ebbe377b9c768": {
+      "characters": 510,
+      "file": "scenes/578532f552e2e171e99a02900a6530b5.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "589dd740d04c2843e6ab6a4c33a6f8b18048efe7bcb9b2777e236eab0e586df4": {
+      "characters": 652,
+      "file": "scenes/589dd740d04c2843e6ab6a4c33a6f8b1.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "5bb2ce0fe444f233db874f0099353111dde6985b9165961ca8d3c7c552950504": {
+      "characters": 589,
+      "file": "scenes/5bb2ce0fe444f233db874f0099353111.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "5c085633114d8dcce2ad90dfe6f001528369fcb5e453bc22db0417e546724828": {
+      "characters": 754,
+      "file": "scenes/5c085633114d8dcce2ad90dfe6f00152.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "5d35bf80c9eeb90c0e45a2128b6f4f13fe555e0803d69b4b63d480d1c7adfd52": {
+      "characters": 584,
+      "file": "scenes/5d35bf80c9eeb90c0e45a2128b6f4f13.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "5dafc0865410499d0111e4c91fc67bbb84bca0f90585788c9691db3f8ad2adbd": {
+      "characters": 563,
+      "file": "scenes/5dafc0865410499d0111e4c91fc67bbb.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "5e5483b3a81e972e9f9c554f1568854c7820ba854cc57501efec5abbe0f208e2": {
+      "characters": 713,
+      "file": "scenes/5e5483b3a81e972e9f9c554f1568854c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "5ed71c1bbcfb599ed95d3c0f3ad862da8707608893ae8ade9b12eedbb2a7863a": {
+      "characters": 480,
+      "file": "scenes/5ed71c1bbcfb599ed95d3c0f3ad862da.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "5fe524caaf101fb81b644eabcb556d3f17b1bb7e734a4be909973d4516c43deb": {
+      "characters": 581,
+      "file": "scenes/5fe524caaf101fb81b644eabcb556d3f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "63c3581434adb760382816d09c822332b1452501eb08e069376121c52c4c7d3f": {
+      "characters": 608,
+      "file": "scenes/63c3581434adb760382816d09c822332.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "65dd047ccd9fd5594f6e3df14ae702a4d3d3f490cf162d770c6563767f6346c7": {
+      "characters": 445,
+      "file": "scenes/65dd047ccd9fd5594f6e3df14ae702a4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "66bb97d84b34991a76d659f3fd80df8d43b8830ef2bb51e320a3232098f9b5d8": {
+      "characters": 477,
+      "file": "scenes/66bb97d84b34991a76d659f3fd80df8d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "68ab3e949048312a0e73e84c594ecec912f506b5adfaead1cfd1dabdff63ac82": {
+      "characters": 631,
+      "file": "scenes/68ab3e949048312a0e73e84c594ecec9.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "6980d612fba983848e5d6d0ba34932ef80df3578b2fa45311c787088ec2f7abf": {
+      "characters": 641,
+      "file": "scenes/6980d612fba983848e5d6d0ba34932ef.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "6a1d009b920c9863c5726a03d607b7c9284a95e7e9a6110f004daed1df20b568": {
+      "characters": 623,
+      "file": "scenes/6a1d009b920c9863c5726a03d607b7c9.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "6b5f12720d993f5561d6ba235079b753ec755ccd77ae3729f9595ba9dfe520a2": {
+      "characters": 618,
+      "file": "scenes/6b5f12720d993f5561d6ba235079b753.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "6bde4bf2ebca2c160f433942b622f6831112d2f3f87ca5d7fe48245ec106d2e6": {
+      "characters": 505,
+      "file": "scenes/6bde4bf2ebca2c160f433942b622f683.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "6cec3185318caf18aa442be4eec465a2711c9bd69a6c7124b7433627299d7c33": {
+      "characters": 549,
+      "file": "scenes/6cec3185318caf18aa442be4eec465a2.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "6d9b61b1294455a4572013f9f30e6c5ce14309dd772de47012f56cc4842afdd4": {
+      "characters": 518,
+      "file": "scenes/6d9b61b1294455a4572013f9f30e6c5c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "6ed9893b9f152860b7e42db0a9b4ba056af84676dfd777babefa36efa3e5b2c3": {
+      "characters": 698,
+      "file": "scenes/6ed9893b9f152860b7e42db0a9b4ba05.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "6ee533bb1c5d2761c7a0a7e1d69d07c4364c702b4ecf7ff1d98705a5ffca1799": {
+      "characters": 542,
+      "file": "scenes/6ee533bb1c5d2761c7a0a7e1d69d07c4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "6f0b976c53bed6694dca2c920627dca4448ba33aac51a0492c7f4dc5de81c288": {
+      "characters": 463,
+      "file": "scenes/6f0b976c53bed6694dca2c920627dca4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "71128b642d80c72a15a0330d8ee22d5854437d3d63d834bd9637aca8b658c5cf": {
+      "characters": 562,
+      "file": "scenes/71128b642d80c72a15a0330d8ee22d58.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "716ca29ace275a6d042bc832519f43fb28d0f64cca1291517efc11bf7da1b7e8": {
+      "characters": 486,
+      "file": "scenes/716ca29ace275a6d042bc832519f43fb.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "72b5823236b0b35aa82e2ffe3dcd98c169b3e66cbcff933e5c50d00602756cf3": {
+      "characters": 593,
+      "file": "scenes/72b5823236b0b35aa82e2ffe3dcd98c1.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "74a7d9585289e5178c258b3026e12c6762881273bca4ca1eedb0f7b1c4068d0b": {
+      "characters": 494,
+      "file": "scenes/74a7d9585289e5178c258b3026e12c67.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "76b34b594206a89622a43b92393ae6d5bfd6de5800fc937ed0e08d4ad25ce6ba": {
+      "characters": 542,
+      "file": "scenes/76b34b594206a89622a43b92393ae6d5.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "7773a81e19e22e5bfa80809e873d1b1e5f6fb94358d3b80fe18050d604a89a36": {
+      "characters": 558,
+      "file": "scenes/7773a81e19e22e5bfa80809e873d1b1e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "778ee521b2285cc95727f58b16b04c7d168505f61be412200a303a5d549bde2c": {
+      "characters": 704,
+      "file": "scenes/778ee521b2285cc95727f58b16b04c7d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "7802f8ba371dcf349bd02700e433bb2bb643ddcdfb15baa17abd54dbebc08828": {
+      "characters": 624,
+      "file": "scenes/7802f8ba371dcf349bd02700e433bb2b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "794d9d3b58c8fc2fb47a7db12b382129576c9ae21065591832d9244cda537b07": {
+      "characters": 583,
+      "file": "scenes/794d9d3b58c8fc2fb47a7db12b382129.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "79b3e58672865d9bc4af239aa4795dcebfe82bfb4b812e1e0b2403c5423c3106": {
+      "characters": 581,
+      "file": "scenes/79b3e58672865d9bc4af239aa4795dce.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "7a63adb6928d9289956c11c854ea97ecac98fa99b5499b705c2cefcd76741711": {
+      "characters": 478,
+      "file": "scenes/7a63adb6928d9289956c11c854ea97ec.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "7a82890d9b4d90cc5401618e3e027b7bd9161f1eb4719c44dc9e5c98197ed7c5": {
+      "characters": 640,
+      "file": "scenes/7a82890d9b4d90cc5401618e3e027b7b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "7b58620ab236bd581f2df76ae29726e8241866b91c570bbe20e1b56f8abd88cf": {
+      "characters": 736,
+      "file": "scenes/7b58620ab236bd581f2df76ae29726e8.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "7d65c7d8f73201f3ec6c71cf1443cd51cb6f10d7e6478f52fac41186574197a7": {
+      "characters": 481,
+      "file": "scenes/7d65c7d8f73201f3ec6c71cf1443cd51.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "7dd67ebf640abff111878ef585e92e069d8fe6281fc5ab0d1cb490e14537bc21": {
+      "characters": 582,
+      "file": "scenes/7dd67ebf640abff111878ef585e92e06.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "7ef571a608217edb17c8fd263b5793f8be638b73ac243e83d4479a957f184947": {
+      "characters": 514,
+      "file": "scenes/7ef571a608217edb17c8fd263b5793f8.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "80a51b315b7883f9f6e454d813f059c32f3e1c0769f55bf0b60ad5872e59a995": {
+      "characters": 521,
+      "file": "scenes/80a51b315b7883f9f6e454d813f059c3.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "82c9a53901108c85fe2672f31db2092ccd38c323c4ff45802bbbf52a563e9cab": {
+      "characters": 647,
+      "file": "scenes/82c9a53901108c85fe2672f31db2092c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "83ca7d0af2fb6599e1f4f271c671393220d47f657fd769854794575e70d4f2ad": {
+      "characters": 564,
+      "file": "scenes/83ca7d0af2fb6599e1f4f271c6713932.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "84591b955cade41459e66f43899227242c9d9afe06b6a129d58c6a0dfc41ae7e": {
+      "characters": 571,
+      "file": "scenes/84591b955cade41459e66f4389922724.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "84d7edebe1f02cd7d311691419db950ada10bb200294670321ec4778e57d4886": {
+      "characters": 631,
+      "file": "scenes/84d7edebe1f02cd7d311691419db950a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "8912d7b04e0afef4e1e8d98a54da5c429d7ce88a01838fcdb851e2708a3feb01": {
+      "characters": 743,
+      "file": "scenes/8912d7b04e0afef4e1e8d98a54da5c42.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "892cb4e9231db3768b26cb0a6029cbffeaf3658e02072fd4b4ac8ea55610595c": {
+      "characters": 516,
+      "file": "scenes/892cb4e9231db3768b26cb0a6029cbff.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "8a84ad95495af6947d62f50350ee600edeb3b553bae4ad45571c0c99ccdfa79b": {
+      "characters": 549,
+      "file": "scenes/8a84ad95495af6947d62f50350ee600e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "8b322ada3e30e08d31223a3a52667e80c97b137d21dc6ea2db90fee74a617f7f": {
+      "characters": 608,
+      "file": "scenes/8b322ada3e30e08d31223a3a52667e80.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "8badf1f62e7ef8e83c78b9e3930e3bd2eb77ed78b02304bebeebeb1904fb51cd": {
+      "characters": 638,
+      "file": "scenes/8badf1f62e7ef8e83c78b9e3930e3bd2.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "8e3a5c803469d6f5c8c25b9e4a760c61a461350f1036f42b37a6e04090f6bf16": {
+      "characters": 597,
+      "file": "scenes/8e3a5c803469d6f5c8c25b9e4a760c61.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "90857bfba37a0eeca3b5ee8c7da90e4730b9aaa4507fbde2353c33a853234609": {
+      "characters": 615,
+      "file": "scenes/90857bfba37a0eeca3b5ee8c7da90e47.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "919781c378a851ec2ca4a0c6af2fb103b1205de043840df2046213e98161d76c": {
+      "characters": 485,
+      "file": "scenes/919781c378a851ec2ca4a0c6af2fb103.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "929fed45e6d3c9a2299878f8e8757873abacf4f32fde103bdcd7d7936d59d541": {
+      "characters": 608,
+      "file": "scenes/929fed45e6d3c9a2299878f8e8757873.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "92a88a9ae1218453fa652581fabdcd2e75f9c711c5588e3a59857ec972bcb559": {
+      "characters": 600,
+      "file": "scenes/92a88a9ae1218453fa652581fabdcd2e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "92ff212eb4e8081a6555c518c2432b9ea86e0f2e5e374dc56fd18a6feba0530f": {
+      "characters": 664,
+      "file": "scenes/92ff212eb4e8081a6555c518c2432b9e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "93477b6a1bb2c7c668e03d1e58093d7691707b47a8d8758460d55162182fb7ce": {
+      "characters": 524,
+      "file": "scenes/93477b6a1bb2c7c668e03d1e58093d76.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "936344fdeaf9764b56fff4ef694c838a3a098a8dbf0dcc849f00ffb53685798f": {
+      "characters": 440,
+      "file": "scenes/936344fdeaf9764b56fff4ef694c838a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "941438d8f36e0b313c07737c72859c6fb477e313155170269632554196d020cf": {
+      "characters": 591,
+      "file": "scenes/941438d8f36e0b313c07737c72859c6f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "954fb6352d6c719c354ae857ae767be5a6f5729dbcb3c0ebaf51fb7e61e3c965": {
+      "characters": 639,
+      "file": "scenes/954fb6352d6c719c354ae857ae767be5.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "965c664550cfc73e26f647f4bda4856f2f7db3dc1582c752842a695569382ec5": {
+      "characters": 487,
+      "file": "scenes/965c664550cfc73e26f647f4bda4856f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "96e18d8848ce91b1010b6188141abf4c81acb0ac0b566e3acf37d2e7d53244e1": {
+      "characters": 638,
+      "file": "scenes/96e18d8848ce91b1010b6188141abf4c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "976f60f976d0eb6e15e0d1f87cabd691b128efb7656cbe777eb8bfd453789ba5": {
+      "characters": 746,
+      "file": "scenes/976f60f976d0eb6e15e0d1f87cabd691.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "983be32c57d674922dd42b5e230cca5d8acd24833c99ac72069cdb3797d19159": {
+      "characters": 608,
+      "file": "scenes/983be32c57d674922dd42b5e230cca5d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "98dd68807e691f674a104eb83390a61629a25d7a1f2ae600235351e2f5802747": {
+      "characters": 556,
+      "file": "scenes/98dd68807e691f674a104eb83390a616.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "9979e918a33a2f62c74537811dd6d1272163a5e95515d1fd50c1ff3234f338bf": {
+      "characters": 575,
+      "file": "scenes/9979e918a33a2f62c74537811dd6d127.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "99ac0a89f9c9480a337f35f3062eb8534967542078579fb6352c4e4c70e6d37d": {
+      "characters": 483,
+      "file": "scenes/99ac0a89f9c9480a337f35f3062eb853.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "9af95758d2f712dcbd44f3dc2374eb3853f92671903870570f4d254800ba3d66": {
+      "characters": 529,
+      "file": "scenes/9af95758d2f712dcbd44f3dc2374eb38.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "9b331ffbcca167c44d0047923a3e489e1c440755da0d97ac3bab431e6addc6a0": {
+      "characters": 566,
+      "file": "scenes/9b331ffbcca167c44d0047923a3e489e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "9b9839763bb9a3b5ac88c75911b480bb781e602acd2668618ab25ad44a3972b5": {
+      "characters": 508,
+      "file": "scenes/9b9839763bb9a3b5ac88c75911b480bb.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "9ea93bfd25ee99b9b2af571f2e30119f204953e4c42d63ec5f7c6d1367353532": {
+      "characters": 555,
+      "file": "scenes/9ea93bfd25ee99b9b2af571f2e30119f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "9fa47bd409b29297ce32a59bbeb79c30b926723a931621c9ec83bb8e71b5ab75": {
+      "characters": 487,
+      "file": "scenes/9fa47bd409b29297ce32a59bbeb79c30.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a10bcc1620c8b90c18526dcf33501b06f5fbf4aae799d1625377cc8687f2628f": {
+      "characters": 658,
+      "file": "scenes/a10bcc1620c8b90c18526dcf33501b06.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a173e2e32a0be59d9c84a20e2c0dede053243e70f7c1613f40ad62e01191e51c": {
+      "characters": 591,
+      "file": "scenes/a173e2e32a0be59d9c84a20e2c0dede0.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a2454be4f1bf53d68d3aad489e5d49d34a2bf41d15e30c1036886217d8ce0c9d": {
+      "characters": 616,
+      "file": "scenes/a2454be4f1bf53d68d3aad489e5d49d3.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "a2b2c32c424e039feede108d8a68cefabf36e30ec387a647b41cc32c78e6e338": {
+      "characters": 484,
+      "file": "scenes/a2b2c32c424e039feede108d8a68cefa.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a3c0866347fea99f2d18752cff06bf18463979e594679bb5c15223c32016090c": {
+      "characters": 588,
+      "file": "scenes/a3c0866347fea99f2d18752cff06bf18.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "a3f6e267f7631677721861d47afdad00a7e3f540c27cc2d1848db273ce7c4e5a": {
+      "characters": 413,
+      "file": "scenes/a3f6e267f7631677721861d47afdad00.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a44e1af8fbd2d85774915aea8447dfc72111820c26b4dec9f988b50451e4fc36": {
+      "characters": 575,
+      "file": "scenes/a44e1af8fbd2d85774915aea8447dfc7.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "a45153e2c5e22d1a8e32431cabc45c769e5e33416e3720f0dc7f548c8978f3ad": {
+      "characters": 474,
+      "file": "scenes/a45153e2c5e22d1a8e32431cabc45c76.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "a4ceaf4a9d0e0979d87ba3fd299ce54bc57473a128a2baa513cc1e2c31e8d912": {
+      "characters": 664,
+      "file": "scenes/a4ceaf4a9d0e0979d87ba3fd299ce54b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "a569a225968ecd1d7fbc728fbe11aea657ef496173cabf054bd8fb32cd1b311a": {
+      "characters": 433,
+      "file": "scenes/a569a225968ecd1d7fbc728fbe11aea6.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a608c4f4c75d7a76ba48c095b823db0c549245d3378c7ccf8102532af02fb96f": {
+      "characters": 481,
+      "file": "scenes/a608c4f4c75d7a76ba48c095b823db0c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a646af02aecc81dc23c20613e5bf5bcc391ed079f844751ad238dc891ec7b880": {
+      "characters": 593,
+      "file": "scenes/a646af02aecc81dc23c20613e5bf5bcc.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a6b269c2dac698a1734887a28405f1aedcecb8ab5e122e8cc99066716f119d94": {
+      "characters": 592,
+      "file": "scenes/a6b269c2dac698a1734887a28405f1ae.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "a829427b83d4c16b9ab1908fb94333e00115dcdb1fa12768339a6854f1c08588": {
+      "characters": 566,
+      "file": "scenes/a829427b83d4c16b9ab1908fb94333e0.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "a95cfa983fd8cf1e7ca3047266529646cc03a5b2f37ee7d675ec49b04aa7f80b": {
+      "characters": 477,
+      "file": "scenes/a95cfa983fd8cf1e7ca3047266529646.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "a9d4fba13119119ce70927be7f24a295347caf147d6e64a6593d026cf39b221c": {
+      "characters": 656,
+      "file": "scenes/a9d4fba13119119ce70927be7f24a295.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "aa3f4031a1287864a6d11e1994f2b3a645dd8a6831b62548cb1015f361b372ea": {
+      "characters": 642,
+      "file": "scenes/aa3f4031a1287864a6d11e1994f2b3a6.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "aaff1c498d18eb16409317d344173a51887fd6723cb3adb035308848611db775": {
+      "characters": 593,
+      "file": "scenes/aaff1c498d18eb16409317d344173a51.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "ab9c6329b3f8b9427f27ecde1ed384bb70c1f002d51533d75f05e1eb339c1f02": {
+      "characters": 474,
+      "file": "scenes/ab9c6329b3f8b9427f27ecde1ed384bb.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "acd5b144d6107ba385d0f646f46eafccbe3575d7058d7204d53c2bad5ffa58af": {
+      "characters": 536,
+      "file": "scenes/acd5b144d6107ba385d0f646f46eafcc.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "ae25beb145e7801e168a04c3540419b37534d6625d715731b469ad3140d74955": {
+      "characters": 580,
+      "file": "scenes/ae25beb145e7801e168a04c3540419b3.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "b090f067bf15d089740f6b8e027da91b9e9ca74d72810f6f2277e633f791fdbd": {
+      "characters": 561,
+      "file": "scenes/b090f067bf15d089740f6b8e027da91b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "b240bb81df3bb412cf01e59ab22dc9a037d0a6a932d9bccfe22d0c4eace99938": {
+      "characters": 495,
+      "file": "scenes/b240bb81df3bb412cf01e59ab22dc9a0.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "b2d106c5a90208a777738501f41f2959345e184596e95f12f4c85b727b379ce7": {
+      "characters": 406,
+      "file": "scenes/b2d106c5a90208a777738501f41f2959.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "b4117001209e44d255c8cea7c9318639557b526052815a7df90ec2fbb239826e": {
+      "characters": 547,
+      "file": "scenes/b4117001209e44d255c8cea7c9318639.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "b4326b7b8a352d4c71a4477fbd06eb8304e903631a9eed617cae2e57778ce0e9": {
+      "characters": 571,
+      "file": "scenes/b4326b7b8a352d4c71a4477fbd06eb83.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "b43acfb5a978f7c48e40dc2ec00ea1df9b991711eaee1517006a07ff08d1d12c": {
+      "characters": 639,
+      "file": "scenes/b43acfb5a978f7c48e40dc2ec00ea1df.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "b556f0cf9e61f6f1e08228ac100dfc6721f74c48f3fa4aa2c4729dda41ab286f": {
+      "characters": 730,
+      "file": "scenes/b556f0cf9e61f6f1e08228ac100dfc67.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "b57b4129a53352860967882d24048db490b668e1c2ef32ba5678d917e1d9491b": {
+      "characters": 662,
+      "file": "scenes/b57b4129a53352860967882d24048db4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "b87b301e531187d072f88d9cf8a9241cc4dfdfe837476db4095174ce7ba4148a": {
+      "characters": 531,
+      "file": "scenes/b87b301e531187d072f88d9cf8a9241c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "ba884935a25b02461d47e39fc3af54079e33fd9e5b38d35928737df003c15628": {
+      "characters": 584,
+      "file": "scenes/ba884935a25b02461d47e39fc3af5407.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "bbcdd04cd82fee3edf93114760fdd29f7cc05ff6004cd25493fe5b42fe8adc83": {
+      "characters": 540,
+      "file": "scenes/bbcdd04cd82fee3edf93114760fdd29f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "bbd8162ab41ee98abe185bff2be7786cbb16e3d8a18dc29670562b65799c66b8": {
+      "characters": 628,
+      "file": "scenes/bbd8162ab41ee98abe185bff2be7786c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "bd88d61a959e6e422b2638d8f219eb4dd8ec04ff3a35dc0b362592826415b5b1": {
+      "characters": 573,
+      "file": "scenes/bd88d61a959e6e422b2638d8f219eb4d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "bddac2e359475112677f396e67c69beda8dd61d3f43863d2b859dd77ce7e9465": {
+      "characters": 738,
+      "file": "scenes/bddac2e359475112677f396e67c69bed.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "be25354f0690261cb21bd8f69a9cb4b33fdb943672d7d7e5e734dd50a125eba9": {
+      "characters": 532,
+      "file": "scenes/be25354f0690261cb21bd8f69a9cb4b3.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "bf02d5b918eb2dbe1207d225117a05313123f4cb7e0f52940411361f12b44a31": {
+      "characters": 589,
+      "file": "scenes/bf02d5b918eb2dbe1207d225117a0531.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "bfc5902da4766a8312a8f874f51a5cb54a297de111f6b519194cd0e9ae8e77ae": {
+      "characters": 564,
+      "file": "scenes/bfc5902da4766a8312a8f874f51a5cb5.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "c01f087a1b8974e63507f06e4d7c58f1bbbfe9f9a1e603fae7bb0e71be826a2a": {
+      "characters": 730,
+      "file": "scenes/c01f087a1b8974e63507f06e4d7c58f1.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "c039514526d0fde3b4441bfe2d1fac5ff1a83e433367701d560e31cece9c7d51": {
+      "characters": 483,
+      "file": "scenes/c039514526d0fde3b4441bfe2d1fac5f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "c0dc37dc78c96f9f951bbd8320bc54492fda4d9237e3ebc004846821386d7efd": {
+      "characters": 616,
+      "file": "scenes/c0dc37dc78c96f9f951bbd8320bc5449.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "c1c80fc307e57d4382f24974ed5ca538b75c6f9585396d26532c8d47e53f1eb3": {
+      "characters": 574,
+      "file": "scenes/c1c80fc307e57d4382f24974ed5ca538.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "c1d780f2a468f7959f9a86fb73d4897ec0cd414697a7196b35ab01f9b463eb9e": {
+      "characters": 541,
+      "file": "scenes/c1d780f2a468f7959f9a86fb73d4897e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "c293f6fb1fba403721f254bf11a130181d2b8669af11fbbfd33d3bc091cb72ff": {
+      "characters": 581,
+      "file": "scenes/c293f6fb1fba403721f254bf11a13018.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "c358e4d4f06c078d58e3f2746c9994ec99815678a8a898d45fa1935cff00d75b": {
+      "characters": 525,
+      "file": "scenes/c358e4d4f06c078d58e3f2746c9994ec.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "c370efd223a68986d1c88b0beedb1f7bc7b41634dcb39ee2b7553abf70868c1e": {
+      "characters": 393,
+      "file": "scenes/c370efd223a68986d1c88b0beedb1f7b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "c3d3579fe06d12f41fb98c98fb38ab4f2e2f509e0cdbd63aa8f99b0038bf49b4": {
+      "characters": 598,
+      "file": "scenes/c3d3579fe06d12f41fb98c98fb38ab4f.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "c50f312b0ff0b08e3f1511cccdd80c88d5c23635a34c8bd51c3c9394d9acc2e8": {
+      "characters": 442,
+      "file": "scenes/c50f312b0ff0b08e3f1511cccdd80c88.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "c510bd7eb6e0229a5e3bde9a804c928eb3bbf1609defde11ec2d91865edc3ed5": {
+      "characters": 691,
+      "file": "scenes/c510bd7eb6e0229a5e3bde9a804c928e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "c654e1348edef71f4b1967e380245ed2b19280ae414780b017a08e21826ab8d8": {
+      "characters": 626,
+      "file": "scenes/c654e1348edef71f4b1967e380245ed2.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "c68d72e3420a52d787e555b1bfbabf7d7ba1c4835fc1884d5c66a16d4ea7ab6b": {
+      "characters": 579,
+      "file": "scenes/c68d72e3420a52d787e555b1bfbabf7d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "c8b45108d07a87944f64fb68404a4ee4e14796905b85aa15605cbcae358e96b0": {
+      "characters": 516,
+      "file": "scenes/c8b45108d07a87944f64fb68404a4ee4.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "ca25bda8575ef78ee662df13a442fc54dd896362b6004378d0f6fe77353d5927": {
+      "characters": 527,
+      "file": "scenes/ca25bda8575ef78ee662df13a442fc54.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "cf54060b8ddd9d0719e41e870e020e942aad0374e3db62ac819f356f4e21927b": {
+      "characters": 748,
+      "file": "scenes/cf54060b8ddd9d0719e41e870e020e94.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "cfa7eb688e280e2ca414964fd6ee0c5b48757666b2ef66087a5c7d7f4bce5cae": {
+      "characters": 582,
+      "file": "scenes/cfa7eb688e280e2ca414964fd6ee0c5b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "d038fe8f1835dafb03a96a8bd6c12b3c030171eb6fec74f521cef565aea3ee71": {
+      "characters": 579,
+      "file": "scenes/d038fe8f1835dafb03a96a8bd6c12b3c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "d04aef4d2462062a81727a389e87ffc82e0473b2c3a33b41ac051dc38a07f2c0": {
+      "characters": 529,
+      "file": "scenes/d04aef4d2462062a81727a389e87ffc8.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "d18ac9c9eb489abe492d53c5cc3410ff831d0a6444d7382d9ec90e929b17e500": {
+      "characters": 517,
+      "file": "scenes/d18ac9c9eb489abe492d53c5cc3410ff.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "d5fe16e191724580b4e83784a8af38270d49ce62663a2c67a10bf87572e94c7b": {
+      "characters": 760,
+      "file": "scenes/d5fe16e191724580b4e83784a8af3827.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "d7948d1781127723f767cb8bfebad2416b9f9fe1b41de3be887cb1187a68511b": {
+      "characters": 457,
+      "file": "scenes/d7948d1781127723f767cb8bfebad241.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "da48db8cf56e7c5a98cf1fd9b5304c35745d7af5647f36e82ea0e9f80fa0e381": {
+      "characters": 604,
+      "file": "scenes/da48db8cf56e7c5a98cf1fd9b5304c35.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "dba25e45240af851417db0f7cd56689e56c8a23312cceb25e5d28fc19fe78051": {
+      "characters": 395,
+      "file": "scenes/dba25e45240af851417db0f7cd56689e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "dbbeef17e6adc54c94919abaa562b2ee57362e7b350febdc065429ecb30bfbce": {
+      "characters": 440,
+      "file": "scenes/dbbeef17e6adc54c94919abaa562b2ee.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "ddc2797b6909a19570329f15f7b20e3e220f765ba0adc91b26eca729723b97ea": {
+      "characters": 519,
+      "file": "scenes/ddc2797b6909a19570329f15f7b20e3e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "ddcdbbe127628b933886745d831393b80be72322c96d04cd6d4e61d38d1b051e": {
+      "characters": 568,
+      "file": "scenes/ddcdbbe127628b933886745d831393b8.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "dfc1386fabf88b35006c03767dd9a90bba46f829e7f03fe6f24ad90ccaa6776d": {
+      "characters": 507,
+      "file": "scenes/dfc1386fabf88b35006c03767dd9a90b.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "e0f787150af2a4a443dba146d1305c5916ed5bb6799dfe82a0e8426904296541": {
+      "characters": 600,
+      "file": "scenes/e0f787150af2a4a443dba146d1305c59.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "e15f003a63f8250badb73207b86ca203e7568e669fed60ecaeca8929b0ec1dd3": {
+      "characters": 485,
+      "file": "scenes/e15f003a63f8250badb73207b86ca203.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "e1a2661fc6dd9d1f2912d474f8eb2d52c1a59ba23a50d5b984ec26887140211c": {
+      "characters": 585,
+      "file": "scenes/e1a2661fc6dd9d1f2912d474f8eb2d52.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "e3f81b88c44a1e0a5ecd4a52682a6045fe8c966739190980c297d11712e97610": {
+      "characters": 732,
+      "file": "scenes/e3f81b88c44a1e0a5ecd4a52682a6045.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "e4e0f43a140e4ac159485d4a34dd6d839ce1b8ebb140a62f30dd3f40185dada7": {
+      "characters": 578,
+      "file": "scenes/e4e0f43a140e4ac159485d4a34dd6d83.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "e6a652d5dee8c4734a3b2a240122f7789d37680fc6f6186ffd174498dd5ed9ca": {
+      "characters": 722,
+      "file": "scenes/e6a652d5dee8c4734a3b2a240122f778.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "e77110838c57a7bb990ad32739299bc5de7b2e084850069a3d7d2dc0664822fe": {
+      "characters": 407,
+      "file": "scenes/e77110838c57a7bb990ad32739299bc5.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "ea0156c13c7a7944a0ae4259a3b5b13c0ecedfe2add91bc5631fce33cd9ab676": {
+      "characters": 480,
+      "file": "scenes/ea0156c13c7a7944a0ae4259a3b5b13c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "ea229b21471cdd9585fec614883939049cf8cd236d02b2287a46f0e285823663": {
+      "characters": 611,
+      "file": "scenes/ea229b21471cdd9585fec61488393904.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "ea8d301aaa5ea5ed81670534da79aa9337fdef22169cee8c8738e0c40bc61a12": {
+      "characters": 581,
+      "file": "scenes/ea8d301aaa5ea5ed81670534da79aa93.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "eb5eb0f9138c26ebcf906fcdbb5cf9f0dd56d109b39a3fa781b81db4439b32dd": {
+      "characters": 658,
+      "file": "scenes/eb5eb0f9138c26ebcf906fcdbb5cf9f0.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "eb79d709217cbeeb2d45f798ce33362c47bbf263d46b94ae1c7ce94ab692436c": {
+      "characters": 505,
+      "file": "scenes/eb79d709217cbeeb2d45f798ce33362c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "ec8d5ae50dc4301e65530ef8f7caa034d89c91fead1ad8f4393042aa43ebcb3f": {
+      "characters": 520,
+      "file": "scenes/ec8d5ae50dc4301e65530ef8f7caa034.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "ecd6109108cdc29b84148f185fd6701a72c986839fb00f4c5c2722820b3693b6": {
+      "characters": 649,
+      "file": "scenes/ecd6109108cdc29b84148f185fd6701a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "ee3eafc99cbac4cf492e87aed2148f7aa265f5585bc278b295d85615f71ae4f1": {
+      "characters": 499,
+      "file": "scenes/ee3eafc99cbac4cf492e87aed2148f7a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "ee9032767bdfa479f0f1358e40877c20e184bfec3b3e4ca449a598c7f90581c5": {
+      "characters": 550,
+      "file": "scenes/ee9032767bdfa479f0f1358e40877c20.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "ee9b1a26637227f8175c2b6363fc91528f660f3895057583dd8f46c26017ff78": {
+      "characters": 449,
+      "file": "scenes/ee9b1a26637227f8175c2b6363fc9152.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "f0b51b0b491d2321d87f62777ee24626458629944a28ce58345b2b8b6bda5562": {
+      "characters": 574,
+      "file": "scenes/f0b51b0b491d2321d87f62777ee24626.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "f1ab6caf8eddbd3c1eb66b42741c2855bb208a712c58caeb68458d3b9f7b1a24": {
+      "characters": 652,
+      "file": "scenes/f1ab6caf8eddbd3c1eb66b42741c2855.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "f3ca5f8b0f18af358125b56145b4426ec6a5d6a9bbf1aefeed5bdaa7e442ead5": {
+      "characters": 597,
+      "file": "scenes/f3ca5f8b0f18af358125b56145b4426e.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "f556ba4d74ccb885e06bd12b77efc8de7a1f2aeb12cdad46f5a90ae236671337": {
+      "characters": 485,
+      "file": "scenes/f556ba4d74ccb885e06bd12b77efc8de.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "f58eb8ecf80e2ca92d10d5e2c67cb6bf2c4d848a1d9550ab5bffaaf6fca2a89a": {
+      "characters": 742,
+      "file": "scenes/f58eb8ecf80e2ca92d10d5e2c67cb6bf.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-jane"
+    },
+    "f5a6e469eb296fc644f8b3ca9e45487c47fd791e11e1df2fe202959562f6f784": {
+      "characters": 427,
+      "file": "scenes/f5a6e469eb296fc644f8b3ca9e45487c.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "f84bc6f02be3d24c96463c595a9a2e8da5b02a63d1458229de1be0afc5371877": {
+      "characters": 421,
+      "file": "scenes/f84bc6f02be3d24c96463c595a9a2e8d.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "f944bcace76488e13d8bc47e7a5325945509f51a0885ba74323ca90527764f9d": {
+      "characters": 572,
+      "file": "scenes/f944bcace76488e13d8bc47e7a532594.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "f975b5bdd3e05803720462e4a6d753c3b0b2405a6ae7f9cf9174a210d744aab7": {
+      "characters": 685,
+      "file": "scenes/f975b5bdd3e05803720462e4a6d753c3.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "fc075b6cd2ac33d8bf48db3c1494088445f9a75d570a30804bb5f6c478635c6b": {
+      "characters": 635,
+      "file": "scenes/fc075b6cd2ac33d8bf48db3c14940884.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "fd306695cec90a430ba657b7366ce95854e0336489df1a74b61e8b98488e7cf9": {
+      "characters": 500,
+      "file": "scenes/fd306695cec90a430ba657b7366ce958.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    },
+    "fe7c97359b8b92f6481192c77c31ac4aa763c72e4acd6481ae4a021ca20079e4": {
+      "characters": 600,
+      "file": "scenes/fe7c97359b8b92f6481192c77c31ac4a.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-audrey"
+    },
+    "ff410b0267fbc393e9cc180697703fe60097b062df8042486a0f1f41382d3d51": {
+      "characters": 489,
+      "file": "scenes/ff410b0267fbc393e9cc180697703fe6.mp3",
+      "generated": "2026-11-05",
+      "voice": "aai-george"
+    }
+  },
+  "version": 1
 }

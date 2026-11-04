@@ -118,15 +118,19 @@ The organizer asked entrants to tag him (Harnoor) and AssemblyAI on both LinkedI
 
 ## Remaining manual actions
 
-1. Approve, or decline, the pre-generation run (exact plan in [VALIDATION.md](VALIDATION.md)), then review the audio.
-2. Approve the commit and push of the release changes.
-3. Create or sign in to a free Render (or Hugging Face) account and deploy using [DEPLOYMENT.md](DEPLOYMENT.md); set `JWT_SECRET`.
-4. Test the public URL on a desktop browser and on a real phone.
-5. Record the 60–90 s video, review it, upload it, and fill in the links above.
-6. Read the submission form and rules on the organizer's Discord. Submit before **23:30 IST on 7 Nov** (aim for 6 Nov).
+Done:
+- narration generated and verified (246 recordings)
+- deployed to Render
+- keep-awake ping running through 15 Nov IST
+
+Left for the owner:
+1. Watch the demo video, upload it (YouTube unlisted, Loom or Drive), and fill in `<DEMO_VIDEO_URL>` above.
+2. Open the live site once on a real phone.
+3. Fill and submit the Google Form above, and post on X and LinkedIn. Submit by **23:30 IST on 7 Nov** at the latest (aim for 6 Nov).
 
 ## Known limitations (stated honestly)
 
 - One hand-written scenario, four decisions, three endings. Stories live in memory on one worker; a restart or reload starts over.
-- Until the generation run is approved, real AssemblyAI audio in the public demo is limited to the Medium's 3.5-second sample; scenes use the labeled mock soundscape.
+- Narration is pre-generated, not synthesized live. The public demo never calls AssemblyAI at request time, and live WebSocket streaming is restricted to an operator-gated mode.
+- Render's free tier sleeps when idle. A keep-awake ping runs through 15 Nov, but a first visit can still take about 50 s if GitHub delays a ping.
 - No microphone, speech recognition, accounts or saved progress. No performance numbers are claimed.
