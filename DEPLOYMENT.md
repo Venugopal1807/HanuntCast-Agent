@@ -1,5 +1,43 @@
 # Safe deployment plan
 
+## Fastest free path (recommended for the hackathon): one mock-only container
+
+Added 2026-11-04. The repository now builds a single container (`Dockerfile`) in which FastAPI serves the built frontend and the API from **one HTTPS origin**. You don't need nginx or a server you manage. The container is **public, mock-only** by construction: `DEPLOYMENT_MODE=public` and `VOICE_PROVIDER=mock` are baked in, startup refuses AssemblyAI in public mode, and no provider key, proxy token or ledger belongs in it. Real AssemblyAI speech reaches visitors only as **pre-generated, labeled static files** in `frontend/public/narration/`.
+
+What the container guarantees (verified locally in production mode, see VALIDATION.md):
+
+- CSP, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy: no-referrer`, `Permissions-Policy` (microphone off) and HSTS on **every** response, including `/healthz`.
+- `/healthz` → `{"status":"ok"}`, no-store, no provider call. `/docs`, `/redoc`, `/openapi.json`, `/.env` and unknown `/api/*` → 404.
+- The live stream route answers 503 ("Live voice is not configured"); `/api/*` still requires JWTs.
+- `.dockerignore` keeps `.env`, ledgers, `release-private/`, recordings, test artifacts and `SESSION_REPORT.md` out of the build context.
+- One worker. Stories are in memory, so run exactly **one instance**.
+
+### Option A: Render (free web service, Docker)
+
+1. Create or sign in to a free Render account and connect the GitHub repository (`Venugopal1807/HanuntCast-Agent`). Render builds from a pushed branch, so the release changes must be committed and pushed first. That requires owner approval.
+2. New → Blueprint → select the repo/branch. `render.yaml` defines a free Docker web service with one instance, the `/healthz` check, and public mock settings.
+3. When prompted for `JWT_SECRET`, paste a value generated **on your machine**. Don't use Render's "generate" option: its 44-character value fails the app's 48-character production minimum.
+   `python -c "import secrets; print(secrets.token_urlsafe(48))"`
+4. Leave `ASSEMBLYAI_API_KEY`, `TTS_LIVE_ACCESS_TOKEN` and `TTS_BUDGET_PATH` **unset**.
+5. After the deploy: open `https://<service>.onrender.com`, check `/healthz`, play the narrator sample, finish one route, and repeat on a phone.
+
+Render's free tier sleeps after about 15 idle minutes, and the first request then takes roughly a minute while the instance starts. The frontend's 15-second request deadline will report a slow first response; **Retry** works once the instance is awake. Before judging, open the site yourself to wake it, or point a free uptime monitor at `/healthz` every 10 minutes (one free service fits within Render's monthly free hours).
+
+### Option B: Hugging Face Spaces (free Docker Space)
+
+Create a Docker Space, set the Space secret `JWT_SECRET` (same generator) and the variable `PORT=7860`, and push this repository (the Space's README needs `sdk: docker` and `app_port: 7860` front matter). Spaces sleep after about 48 hours without traffic. The app sends `frame-ancestors 'none'`, so share the direct `https://<space>.hf.space` URL rather than the embedded huggingface.co page.
+
+### Why not Vercel/Netlify static or serverless
+
+The Vercel CLI is installed on the development machine but logged out. Serverless functions don't keep a process alive between requests, while this backend keeps anonymous stories in process memory. Requests landing on different instances would report "story expired". Making stories stateless (for example, signed story tokens) is possible but too large a change before the deadline.
+
+### Known public-demo limits
+
+- Rate limits and the session cap are per process. One owner keeps at most 5 stories (the oldest are evicted); the house holds 500 at most.
+- Behind a platform proxy, uvicorn trusts `X-Forwarded-For` (`--forwarded-allow-ips '*'`, because only the platform's proxy can reach the container). A client can spoof that header to dodge the per-IP limit on anonymous sign-ins. In mock-only mode the impact is limited to availability, never cost.
+
+## Self-hosted plan (nginx + systemd)
+
 ## Recommended topology and readiness boundary
 
 Publish a **mock-only** site. Record or demonstrate live voice on a separate operator-restricted instance. No host has been selected or deployed in this task. The provided plan targets one Linux host with nginx, systemd and durable local disk; it needs no hosted database or paid infrastructure service beyond any existing host. Hosting charges are not assumed to be free. A static-only host cannot run this backend; Vite dev/preview proxy settings do not configure a production API.

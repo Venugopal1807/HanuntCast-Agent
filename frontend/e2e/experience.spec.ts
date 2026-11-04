@@ -46,9 +46,10 @@ for (const ending of ['liberation', 'escape', 'inheritance'] as const) {
     const title = ending === 'liberation' ? 'The house exhales.' : ending === 'escape' ? 'You make it out. Mostly.' : 'Welcome home, keeper.';
     await expect(page.getByRole('heading', { name: title })).toBeVisible();
     const narration = page.locator('.narrative');
-    await expect(page.locator('.transcript')).not.toHaveAttribute('open', '');
+    // No pre-generated recording for this ending: the transcript opens so the ending can be read.
+    await expect(page.locator('.transcript')).toHaveAttribute('data-default', 'expanded');
+    await expect(page.locator('.transcript')).toHaveAttribute('open', '');
     await expect(page.locator('.journal')).not.toHaveAttribute('open', '');
-    await page.locator('.transcript summary').click();
     await expect(narration).toContainText("Eleanor's name");
     await expect(narration).toContainText(ending === 'escape' ? 'broke your promise' : 'kept your promise');
     if (ending === 'liberation') await expect(narration).toContainText('For the record');
@@ -132,11 +133,13 @@ test('keyboard entry, reduced motion and pending-navigation cancellation', async
 test('listening hierarchy, collapsed details and persistent mobile controls', async ({ page }, info) => {
   await enter(page);
   await expect(page.locator('.narrator-bar')).toContainText('The Archivist');
-  await expect(page.locator('.transcript')).not.toHaveAttribute('open', '');
+  // Mock scene (no real narration): the story text is expanded and starts in the first viewport.
+  await expect(page.locator('.transcript')).toHaveAttribute('data-default', 'expanded');
+  await expect(page.locator('.transcript')).toHaveAttribute('open', '');
   await expect(page.locator('.journal')).not.toHaveAttribute('open', '');
   await expect(page.locator('.player-diagnostics')).not.toHaveAttribute('open', '');
   const choices = page.getByRole('button', { name: /Take the brass key/ });
-  expect((await choices.boundingBox())!.y).toBeLessThan(page.viewportSize()!.height);
+  expect((await page.locator('.narrative').boundingBox())!.y).toBeLessThan(page.viewportSize()!.height);
   for (const width of [320, 375, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 812 });
     await fits(page);

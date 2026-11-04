@@ -44,6 +44,8 @@ def audit(staged=False):
         if sensitive_path(name):
             problems.append(f"Sensitive path: {name}")
             continue
+        if not staged and not (ROOT / name).is_file():
+            continue  # Tracked but deleted (uncommitted) files cannot ship from this working tree.
         data = git("show", f":{name}") if staged else (ROOT / name).read_bytes()
         if any(value in data for value in values) or re.search(
                 rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}", data):

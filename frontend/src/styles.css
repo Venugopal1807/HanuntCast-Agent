@@ -43,10 +43,16 @@ main { min-height: calc(100svh - 160px); }
 .wide { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 58px; padding: 16px 22px; font-size: 14px; }
 .wide > span { font-size: 21px; }
 .landing-action > p { font-size: 10px; line-height: 1.7; color: var(--muted); margin-top: 12px; }
-.feature-row { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 7%; padding: 25px 0; border-block: 1px solid var(--border); gap: 18px; }
-.feature-row > span { font-size: 12px; color: #c1bbd0; line-height: 1.8; }
-.feature-row strong { color: #eee9f7; font-weight: 500; font-size: 14px; }
-.feature-row small { display: block; font-size: 10px; color: var(--muted); }
+.how-it-works { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 7%; padding: 25px 0; border-block: 1px solid var(--border); gap: 18px; list-style: none; counter-reset: step; }
+.how-it-works li { counter-increment: step; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #c1bbd0; line-height: 1.7; }
+.how-it-works li::before { content: "0" counter(step); font-size: 9px; letter-spacing: 2px; color: #b2a9f0; }
+.how-it-works strong { color: #eee9f7; font-weight: 500; font-size: 14px; }
+.voice-sample { display: flex; flex-direction: column; gap: 6px; margin: -8px 0 20px; }
+.sample-button { align-self: start; min-height: 44px; padding: 8px 14px; font-size: 12px; border-color: #7770ef; background: #1d1b33; }
+.sample-button[aria-pressed="true"] { background: var(--indigo); }
+.voice-sample small, .sample-missing { font-size: 10px; line-height: 1.6; color: var(--muted); }
+.sample-missing { margin: -8px 0 20px; }
+.wait-note { margin-top: 16px; }
 .landing-mode-note { font-size: 11px; line-height: 1.8; color: var(--muted); margin: 22px 7% 40px; }
 .site-footer { display: flex; justify-content: space-between; gap: 24px; border-top: 1px solid var(--border); margin: 0 5%; padding: 24px 0; font-size: 9px; line-height: 1.8; letter-spacing: 1px; color: #b9b0c8; }
 .muted { color: var(--muted); }
@@ -164,7 +170,7 @@ main { min-height: calc(100svh - 160px); }
   .hero-invitation { font-size: 11px; margin-top: 22px; }
   .landing-action { margin-top: 24px; max-width: none; }
   .landing-action > p { font-size: 9px; }
-  .feature-row { grid-template-columns: 1fr 1fr; margin: 0 24px; padding: 20px 0; gap: 14px; }
+  .how-it-works { grid-template-columns: 1fr; margin: 0 24px; padding: 20px 0; gap: 14px; }
   .landing-mode-note { margin: 20px 24px 28px; font-size: 10px; }
   .selection-page, .story-page { padding: 22px 16px 32px; }
   .selection-page > h1 { font-size: 43px; }

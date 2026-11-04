@@ -18,9 +18,12 @@ describe('audio lifecycle', () => {
     let resolve!: (blob: Blob) => void;
     vi.mocked(api.audio).mockReturnValue(new Promise(done => { resolve = done; }));
     const AudioMock = vi.fn(); vi.stubGlobal('Audio', AudioMock);
-    const { unmount } = render(<AudioPlayer session={session}/>);
+    const { unmount, container } = render(<AudioPlayer session={session}/>);
+    // Let the pre-generated recording lookup settle (no recording for this fixture text).
+    await waitFor(() => expect(container.querySelector('#narration')).toHaveAttribute('data-recording', 'none'));
     fireEvent.click(screen.getByRole('button', { name: '▶ Play demo audio' }));
     expect(screen.getByRole('status')).toHaveTextContent('Loading');
+    await waitFor(() => expect(api.audio).toHaveBeenCalled());
     unmount();
     expect(vi.mocked(api.audio).mock.calls[0][2].aborted).toBe(true);
     await act(async () => resolve(new Blob(['mock'])));

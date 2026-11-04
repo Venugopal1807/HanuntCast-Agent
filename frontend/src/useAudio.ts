@@ -4,6 +4,7 @@ import type { Session } from './contracts';
 import { z } from 'zod';
 import { PCMDecoder, PCMQueue } from './pcm';
 import { diagnose } from './diagnostics';
+import { findRecording, recordingUrl, type Recording } from './pregenerated';
 
 export type Playback = 'idle' | 'loading' | 'playing' | 'paused' | 'ended' | 'error';
 
@@ -35,6 +36,8 @@ export function useAudio(session: Session) {
   const [muted, setMuted] = useState(false);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [readAloud, setReadAloud] = useState(true);
+  // undefined while checking; null when this exact scene text has no pre-generated recording.
+  const [recording, setRecording] = useState<Recording | null | undefined>(undefined);
   const stateRef = useRef<Playback>('idle');
   const audio = useRef<HTMLAudioElement | null>(null);
   const url = useRef<string | null>(null);
@@ -74,6 +77,12 @@ export function useAudio(session: Session) {
     return () => window.speechSynthesis.removeEventListener('voiceschanged', update);
   }, []);
   useEffect(() => { transition('idle'); setError(''); setMetrics(null); setCanReplay(false); cached.current = null; return release; }, [session.id, session.revision, release, transition]);
+  useEffect(() => {
+    let current = true; setRecording(undefined);
+    if (session.voice_mode === 'live') { setRecording(null); return; }
+    void findRecording(session.persona, session.scene.text).then(entry => { if (current) setRecording(entry); }, () => { if (current) setRecording(null); });
+    return () => { current = false; };
+  }, [session.persona, session.scene.text, session.voice_mode]);
   useEffect(() => {
     if (!retryAt) return;
     const timer = setInterval(() => setClock(Date.now()), 1000);
@@ -133,6 +142,9 @@ export function useAudio(session: Session) {
     if (session.voice_mode === 'live') {
       await playLive(run, controller); return;
     }
+    const entry = recording !== undefined ? recording : await findRecording(session.persona, session.scene.text).catch(() => null);
+    if (run !== generation.current) return;
+    if (entry) { await playRecording(run, controller, entry); return; }
     let stage: 'request' | 'playback' = 'request';
     try {
       const blob = await api.audio(session.id, session.revision, controller.signal);
@@ -181,6 +193,27 @@ export function useAudio(session: Session) {
       if (cause instanceof ApiError && cause.retryAfter) { setClock(Date.now()); setRetryAt(Date.now() + cause.retryAfter * 1000); }
       setError(cause instanceof ApiError ? cause.message : 'Audio could not start. Press Replay to retry, or continue reading.');
       transition('error');
+    }
+  }
+
+  // Static, pre-generated AssemblyAI audio for this exact text. No provider request, no credits.
+  async function playRecording(run: number, controller: AbortController, entry: Recording) {
+    try {
+      const player = new Audio(recordingUrl(entry)); audio.current = player;
+      player.preload = 'auto'; player.volume = 1; player.muted = mutedRef.current;
+      player.onended = () => { if (run === generation.current) { release(); transition('ended'); } };
+      player.onerror = () => {
+        if (run !== generation.current) return;
+        release(); diagnose('audio_failure', { stage: 'playback' });
+        setError('The pre-generated narration could not be played. Press Replay to retry, or continue reading.'); transition('error');
+      };
+      await startMedia(player, controller.signal);
+      if (run !== generation.current) { player.pause(); return; }
+      transition('playing');
+    } catch {
+      if (run !== generation.current) return;
+      release(); diagnose('audio_failure', { stage: 'playback' });
+      setError('The pre-generated narration could not start. Press Replay to retry, or continue reading.'); transition('error');
     }
   }
 
@@ -261,6 +294,6 @@ export function useAudio(session: Session) {
     if (utterance.current && stateRef.current === 'playing') { if (next) holdSpeech(); else resumeSpeech(); }
   }
 
-  return { state, error, metrics, muted, readAloud, setReadAloud, canReplay, hasVoice: voices.length > 0,
+  return { state, error, metrics, muted, readAloud, setReadAloud, canReplay, hasVoice: voices.length > 0, recording,
     retrySeconds: Math.max(0, Math.ceil((retryAt - clock) / 1000)), play, cancel, toggleMute };
 }

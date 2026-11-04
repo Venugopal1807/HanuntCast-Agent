@@ -1,3 +1,56 @@
+# Transcript visibility and live re-check — 2026-11-04 (later)
+
+Change: `frontend/src/Transcript.tsx`. When the current scene has **no** hash-matched AssemblyAI recording (mock fallback), the scene transcript now opens automatically and sits **above** the choices, so the story can always be read. When a recording exists, or in live mode, it starts collapsed. A reader's own toggle always wins for that scene; each new scene resets to its default. Opening the transcript never starts audio.
+
+| Executed check | Result |
+| --- | --- |
+| `python -m pytest backend/tests -q` | **448 passed, 1 skipped** (paid smoke, opt-in) |
+| `ruff check backend tools` · `tools/release_audit.py` | Passed · passed |
+| `npm test` | **73 passed** (adds 4 transcript regressions: expanded without recording, collapsed with recording and no audio on open, early user toggle respected, live collapsed) |
+| `npm run lint` · `npm run typecheck` | Passed · passed |
+| `npm run test:e2e` | **16 passed** (desktop and mobile); assertions updated so mock scenes expect the expanded transcript and the story text within the first viewport |
+| Live browser check against the running dev app (headless Edge, desktop and 375 px mobile; scratch script, not part of the repo) | **72/72 passed**: landing clarity, narrator samples (real Audrey WAV played to the end), player controls, transcript rules, all 9 narrator × ending routes with consequence checks, error/429/audio-failure recovery, mobile overflow and touch targets, only local hosts contacted, no console errors |
+
+No paid AssemblyAI request was made.
+
+# Product upgrade and deployment preparation — 2026-11-04
+
+All commands below were run on 2026-11-04 on Windows (Python 3.14, Node 24, headless Edge) with `VOICE_PROVIDER=mock`, `DEPLOYMENT_MODE=local`, a fixture credential and both paid flags at 0. **No paid AssemblyAI request was made.** No commit, push or deployment was performed.
+
+| Executed check | Result |
+| --- | --- |
+| `python -m pytest backend/tests -q` | **448 passed, 1 skipped** (paid HTTP smoke, opt-in only), 19.6 s |
+| `python -m ruff check backend tools` | Passed |
+| `python -m pip check` | No broken requirements |
+| `npm test` (Vitest) | **70 passed**, 11 files |
+| `npm run lint` / `npm run typecheck` | Passed / passed |
+| `npm run test:e2e` (build + Playwright, desktop and 375 px mobile) | Build passed (52 modules; JS 331.34 kB / 99.60 kB gzip; CSS 26.16 kB / 7.03 kB gzip); **16 passed** |
+| `node scripts/streaming-smoke.mjs` (simulated upstream, no `--live`) | **Passed**: 12 chunks / 57,600 PCM bytes, matching hashes, pause/mute/cancel/scene-change checks true, `websocket_connected: false` (simulated) |
+| `python tools/release_audit.py` and `--staged` | Both passed; no secret values printed |
+| Production-mode single service (`DEPLOYMENT_MODE=public`, `FRONTEND_DIST`, random secret, loopback) | `/healthz` 200 with CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy and HSTS; `/docs`, `/openapi.json`, `/.env`, `/api/unknown` → 404; capabilities report `mock`; live stream route → 503 even with a guessed access header |
+| Headless Edge against that server (1440×1000 and 390×844) | Real AssemblyAI WAV decoded and played to the end (3.52 s); sample toggle works; full Medium route to Liberation; no horizontal overflow; **0 console errors** |
+
+Changes verified by new regression tests (each failed before its fix):
+
+- `deploy/nginx-public.conf` `/healthz` declared its own `add_header`, which drops every server-level security header in nginx. Fixed; a test now rejects any location-level `add_header` in both templates.
+- `tools/release_audit.py` raised `FileNotFoundError` for a tracked file that had been deleted but not yet committed. It now skips files missing from the working tree.
+- After a 429, **Return to character selection** left **Enter** disabled with no explanation. The countdown itself is correct, because the server's bucket follows the same browser token. The button now shows `Wait Ns` and a status note.
+- New: one anonymous owner could fill the global 500-session cap. Owners now keep at most 5 stories, with the oldest evicted.
+- New: optional same-origin static serving (`FRONTEND_DIST`) with security headers, used by the `Dockerfile`/`render.yaml` mock-only deployment.
+- New: pre-generated AssemblyAI narration. Hash-keyed static files are labeled **ASSEMBLYAI · PRE-GENERATED**, narrator-card voice samples play, and the Python and browser hashes match a shared fixture. The generation tool (`backend/tools/pregenerate_narration.py`) was tested offline only, with a mocked transport.
+
+Free dry-run plans from the generation tool (these require approval before execution):
+
+| Tier | Requests | Input characters | Approx. cost at the published $15 / 1M characters | Approx. MP3 size at 48 kbps |
+| --- | --- | --- | --- | --- |
+| `openings` (chapter 1 for each narrator; also the narrator samples) | 3 | 1,345 | ≈ $0.02 | ≈ 0.6 MB |
+| `chapters` (every chapter 1–4 text on every route) | 57 | 26,753 | ≈ $0.40 | ≈ 11 MB |
+| `all` (adds all 189 personalized endings) | 246 | 139,550 | ≈ $2.09 | ≈ 58 MB |
+
+Duration was estimated from the verified sample (51 characters ≈ 3.52 s). Pricing comes from third-party launch coverage, not AssemblyAI's own pricing page. Verify it in the dashboard.
+
+Not verified: a Docker image build (Docker isn't installed here), any hosted deployment, physical speakers and phones, and screen readers.
+
 # Release preparation — 2026-10-30
 
 Repository reality was inspected: main remains at `fc2a81f`, the initial README commit. The application and release changes are still largely untracked and no release files are staged. No commit, push, hosting change, deployment, external API test, registry query or paid synthesis was performed. Prior short HTTP/WS successes remain historical evidence in DEVELOPMENT.md.

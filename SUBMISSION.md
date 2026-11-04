@@ -1,42 +1,74 @@
-# HauntCast AI — BLACKTHORN HOUSE
+# BLACKTHORN HOUSE — hackathon submission
 
-**Every ending has a voice. A haunted story that remembers your choices.**
+## One line
 
-## Problem and solution
+An interactive horror story told aloud by AssemblyAI voices: choose your narrator, make four decisions, hear your ending.
 
-Interactive fiction often asks the audience to read long passages before making a choice. HauntCast makes the narrator and listening controls the center of the experience. Enter Blackthorn House, choose the Archivist, Skeptic or Medium, and make four consequential decisions. Each narrator gives the same canonical world a distinct perspective. Inventory, discoveries and promises carry forward into one of three personalized endings: Liberation, Escape or Inheritance.
+## Short description (paste-ready, about 100 words)
 
-## AssemblyAI integration
+BLACKTHORN HOUSE is a listening-first interactive horror story. Three narrators, the Archivist, the Skeptic and the Medium, tell the same haunted house in three distinct personalities, each voiced by AssemblyAI-TTS-1 (George, Jane, Audrey). You make four decisions. The house remembers the key in your coat, the promise you made and the window you opened, and every ending (Liberation, Escape or Inheritance) is narrated with an epilogue personalized to your path: 189 in total. Narration always speaks the exact text on screen. A credit-safe architecture keeps the API key server-side, the public demo plays labeled pre-generated AssemblyAI audio, and live streaming stays restricted.
 
-The backend integrates AssemblyAI-TTS-1 using the documented HTTP speech endpoint and incremental WebSocket transport. The app's live path uses Begin configuration, Generate, Flush, raw PCM audio and completion/termination frames. Browser Web Audio schedules decoded little-endian PCM incrementally at the provider's echoed sample rate. The exact displayed scene prose is narrated in the selected mapped voice (George/Jane/Audrey). Completed scene audio is cached locally for replay; early live Replay is blocked so it cannot silently start another synthesis. Pause stops playback time; mute silences output while time continues. Cancel and scene changes close active transport/playback resources.
+## How AssemblyAI is integrated
 
-Earlier separately authorized short HTTP and WebSocket tests are recorded in DEVELOPMENT.md. Those records are historical evidence, not a claim that every full scene, voice or deployment has been tested live. This release phase made no paid requests. The public demo is intended to use free mock audio; live narration is restricted to an approved operator demonstration with cumulative reservations. No mock playback is presented as AssemblyAI speech.
+- **Model and voices:** AssemblyAI-TTS-1 with `aai-george`, `aai-jane` and `aai-audrey`, one voice per narrator.
+- **Pre-generated narration (public demo):** `backend/tools/pregenerate_narration.py` walks the real story engine and synthesizes every unique scene text once through the HTTP `/v1/speech` endpoint (MP3, 48 kbps). Each request is reserved in a budget ledger before it is sent, with no retries. Files are keyed by SHA-256 of narrator plus exact text, and the browser verifies that key before playing, so audio can never mismatch the prose. The UI labels it **ASSEMBLYAI · PRE-GENERATED**.
+- **Live streaming (restricted):** `backend/app/assemblyai.py` uses the TTS WebSocket (`Begin` → `Generate` → `Flush` → `Audio` frames → `FlushDone` → `Terminate`). PCM16 chunks are forwarded as NDJSON, and `frontend/src/pcm.ts` schedules them in Web Audio as they arrive. Pause, mute, cancel, stale-scene cancellation and cache-only replay are supported. It requires a JWT, a private proxy token and a durable spending ledger.
+- **Evidence:** on 2026-10-29, one authorized HTTP synthesis (Audrey, 51 characters, 3.52 s) and one authorized WebSocket stream (27 chunks, played incrementally in Edge) both succeeded. That HTTP sample ships in the app on the Medium's narrator card.
 
-## Technologies
+## Architecture
 
-React 19, TypeScript, Vite, Tailwind/CSS, Zod, original local SVG artwork, Web Audio, Python/FastAPI, Pydantic, PyJWT, httpx, WebSockets and SQLite for the private cumulative synthesis ledger. Stories/sessions remain deterministic and process-local. Tests use pytest, Ruff, Vitest, ESLint, TypeScript and Playwright.
+```
+Browser (React 19 + Zod)                     FastAPI (one worker)
+ ├─ landing → narrator cards ── /narration/*.mp3|wav  (static, pre-generated AssemblyAI audio)
+ ├─ scene player ──────────── POST /api/auth → JWT (anonymous)
+ │                            POST /api/sessions, /choices  → deterministic story engine
+ │                            GET  /api/sessions/{id}/audio → mock soundscape (fallback)
+ └─ live player (restricted) ─ POST …/audio/stream → AssemblyAI TTS WebSocket → NDJSON PCM
+                                  ↑ requires proxy token + SQLite ledger reservation
+```
 
-## Differentiators
+The story engine (`backend/app/story.py`, `narration.py`) is deterministic and server-owned: Pydantic validates every request and Zod validates every response. Retries are idempotent (request UUIDs plus revisions), and every route is enumerated in the tests. There is no LLM, microphone or speech recognition.
 
-- Three narrator perspectives with deterministic personalized epilogues across 189 persona/routes.
-- Listening-first responsive layout, original scene artwork and distinct dawn/moonlight/violet endings.
-- Remembered decisions with complete optional transcripts; no microphone or speech recognition.
-- Incremental PCM delivery, explicit playback controls, cache-only completed replay and no automatic paid retries.
-- Public mock fallback, restricted live access, fail-closed cumulative attempt/character budget and server-only credentials.
+## 60–90 second demo video storyboard
 
-## Testing evidence
+| Time | Screen | Voice-over |
+| --- | --- | --- |
+| 0:00–0:08 | Landing page; slow scroll over the mansion and the "How it works" strip. | "Blackthorn House is a horror story you listen to. AI voices tell it, and your choices change it." |
+| 0:08–0:22 | Narrator cards. Click **Hear Audrey** and let the real sample play. (After the approved generation run, also play George and Jane for 2–3 seconds each.) | "Three narrators, three AssemblyAI voices: the Archivist, the Skeptic, the Medium. Same house, different minds." |
+| 0:22–0:40 | Enter as the Medium. The badge shows **ASSEMBLYAI · PRE-GENERATED**. Press **Hear Audrey narrate** and let 6–8 seconds play. | "Every scene is narrated with AssemblyAI-TTS-1, and it's exactly the text you see." |
+| 0:40–0:58 | Choose *Study the portrait* → *Promise to help* → *Untie the ribbon*. Briefly open the decision journal. | "Four decisions. The house remembers the name you found, the promise you made, the ribbon you untied." |
+| 0:58–1:15 | Choose *Lead the girl into the dawn*. The Liberation ending card appears; play the ending narration for a few seconds. | "One of three endings, with an epilogue built from your whole path. 189 of them." |
+| 1:15–1:28 | Brief cut to the architecture diagram or code: pre-generation tool, live WebSocket adapter, budget ledger. | "The public demo plays pre-generated audio. Live streaming runs over AssemblyAI's WebSocket behind a token and a spending ledger, so credits stay safe." |
 
-Final local release checks: **427 backend tests passed, one paid smoke skipped; 63 frontend tests passed; 16 desktop/mobile browser tests passed.** Ruff, ESLint, TypeScript, production build, installed dependency consistency and the offline release audit passed. Release regressions include budget concurrency/persistence, access/budget denial and secret redaction. The free streaming rehearsal passed using a simulated upstream with the actual browser player and authenticated backend route. It proves local scheduling/control behavior, not provider speed or physical-speaker quality. See VALIDATION.md for commands and limits. No performance percentage, award, eligibility or benchmark claim is made.
+Recording rules: capture system audio, keep the labels visible, and show no `.env`, keys, terminals or private URLs. If the scene recordings haven't been generated, record the Audrey sample and a MOCK AUDIO scene, and say so in the voice-over. Don't call the soundscape AssemblyAI speech. For a longer, live-streaming version (which needs paid approval) see [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
 
-## Known limitations
+## Demo script for a live judge walkthrough (about 2 minutes)
 
-Deterministic story, one scenario, four decisions, three canonical endings. Anonymous sessions expire and are lost on backend restart; one worker per instance. No microphone, STT, LLM story generation, accounts or durable story saves. Full-story live voice quality, real assistive-technology evaluation and target-host deployment still require separate checks. Budget accounting depends on protected durable storage and applies to this application's calls, not other use of the provider account. Public hosting is mock-only; live recording requires explicit authorization. Hackathon eligibility/rules have not been independently checked in this offline task.
+1. Open the public URL; if it's on Render's free tier, wake it a minute beforehand.
+2. Landing: read the one-line pitch, then **Start the experience**.
+3. Narrator cards: press **Hear Audrey**, then select the Medium and **Enter Blackthorn House**.
+4. Press the play button (labeled pre-generated when a recording exists), then pause and resume.
+5. Make the four Liberation choices; on the ending, play the narration and open **Your path remembered**.
+6. **Enter again** and pick the Skeptic to show the different voice and prose.
 
-## Submission links — fill before submitting
+## Submission links: fill before submitting
 
-- GitHub repository: `<GITHUB_REPOSITORY_URL>` (configured repository: `https://github.com/Venugopal1807/HanuntCast-Agent`; application release not yet pushed)
-- Public hosted demo: `<PUBLIC_MOCK_DEMO_URL>`
+- GitHub repository: `https://github.com/Venugopal1807/HanuntCast-Agent` (branch `release/hackathon-submission`; the latest changes are not yet committed or pushed)
+- Public demo: `<PUBLIC_DEMO_URL>`
 - Demo video: `<DEMO_VIDEO_URL>`
-- Release commit: `<VERIFIED_RELEASE_COMMIT>`
+- Release commit: `<RELEASE_COMMIT_SHA>`
 
-Owner/contributor attribution must reflect the repository owner's approved submission details.
+## Remaining manual actions
+
+1. Approve, or decline, the pre-generation run (exact plan in [VALIDATION.md](VALIDATION.md)), then review the audio.
+2. Approve the commit and push of the release changes.
+3. Create or sign in to a free Render (or Hugging Face) account and deploy using [DEPLOYMENT.md](DEPLOYMENT.md); set `JWT_SECRET`.
+4. Test the public URL on a desktop browser and on a real phone.
+5. Record the 60–90 s video, review it, upload it, and fill in the links above.
+6. Confirm the deadline, rules and eligibility on the official hackathon page. This review could not verify the November 7 cutoff from public sources.
+
+## Known limitations (stated honestly)
+
+- One hand-written scenario, four decisions, three endings. Stories live in memory on one worker; a restart or reload starts over.
+- Until the generation run is approved, real AssemblyAI audio in the public demo is limited to the Medium's 3.5-second sample; scenes use the labeled mock soundscape.
+- No microphone, speech recognition, accounts or saved progress. No performance numbers are claimed.

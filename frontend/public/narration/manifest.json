@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "model": "assemblyai-tts-1",
+  "samples": {
+    "medium": {
+      "file": "samples/medium-welcome.wav",
+      "voice": "aai-audrey",
+      "characters": 51,
+      "generated": "2026-10-29",
+      "text": "Welcome to Blackthorn House. Your story begins now."
+    }
+  },
+  "scenes": {}
+}

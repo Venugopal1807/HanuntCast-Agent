@@ -1,4 +1,5 @@
 import importlib.util
+import re
 from pathlib import Path
 
 import pytest
@@ -55,3 +56,25 @@ def test_private_env_requires_proxy_path_before_writing(tmp_path):
     with pytest.raises(ValueError):
         env_tool.create("restricted", str(output))
     assert not output.exists()
+
+
+def test_audit_skips_tracked_file_deleted_from_working_tree(monkeypatch, tmp_path, capsys):
+    """Regression: a tracked file deleted but not yet committed used to raise FileNotFoundError."""
+    monkeypatch.setattr(audit, "ROOT", tmp_path)
+    (tmp_path / "present.txt").write_text("harmless")
+    monkeypatch.setattr(audit, "git", lambda *args: b"present.txt\0deleted.txt\0" if args[0] == "ls-files" else b"")
+    monkeypatch.setattr(audit.subprocess, "run", lambda *args, **kwargs: type("Result", (), {"returncode": 0})())
+    assert not audit.audit()
+    assert "Release audit passed" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("name", ["nginx-public.conf", "nginx-restricted.conf"])
+def test_nginx_locations_do_not_drop_server_security_headers(name):
+    """Regression: nginx discards inherited add_header directives when a location declares its own."""
+    text = (Path(__file__).resolve().parents[2] / "deploy" / name).read_text()
+    code = "\n".join(line.split("#", 1)[0] for line in text.splitlines())
+    blocks = re.findall(r"^\s*location\b[^{]*\{([^}]*)\}", code, re.M)
+    assert len(blocks) >= 3
+    for body in blocks:
+        assert "add_header" not in body, f"{name}: location-level add_header drops security headers"
+    assert "Content-Security-Policy" in text and "X-Frame-Options" in text

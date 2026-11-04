@@ -1,3 +1,5 @@
+> **Historical engineering record (written 2026-10-20 to 2026-10-30).** Statements here about Git state ("uncommitted", "README-only main"), test counts and deployment status are dated. Current status: [README](../README.md), [DEPLOYMENT](../DEPLOYMENT.md), [VALIDATION](../VALIDATION.md). Safety rules in this file still apply.
+
 # HauntCast demo guide
 
 Release gate: the public hosted demo must use mock mode. Live playback additionally requires private proxy/network access and a durable cumulative budget; valid provider credentials alone are insufficient. Follow DEMO_SCRIPT.md for the approved recording sequence and DEPLOYMENT.md for the guarded setup. Do not run a paid demo or smoke test under the current release-preparation authorization.

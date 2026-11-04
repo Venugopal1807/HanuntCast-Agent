@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 
 from .assemblyai import AssemblyAIVoiceProvider, KEY_CONFIGURATION_ERROR, is_placeholder_key
 from .models import AuthView, CapabilitiesView, ChoiceRequest, SessionView, StartRequest
@@ -26,6 +27,15 @@ from .budget import SynthesisBudget
 load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 TTL = 3600
 MAX_SESSIONS = 500
+MAX_SESSIONS_PER_OWNER = 5  # Restarting evicts the owner's oldest story instead of filling the shared cap.
+SECURITY_HEADERS = {
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; "
+                               "media-src 'self' blob:; connect-src 'self'; font-src 'self'; base-uri 'self'; "
+                               "frame-ancestors 'none'; form-action 'self'",
+    "Referrer-Policy": "no-referrer",
+    "X-Frame-Options": "DENY",
+    "Permissions-Policy": "microphone=(), camera=(), geolocation=()",
+}
 security = HTTPBearer(auto_error=False)
 logger = logging.getLogger("hauntcast")
 
@@ -71,6 +81,10 @@ def create_app() -> FastAPI:
     lock = threading.RLock()
     app.state.sessions = sessions
     app.state.limits = limits
+    # Optional single-service hosting (no nginx): serve the built frontend from the same origin.
+    frontend_dist = os.getenv("FRONTEND_DIST", "")
+    if frontend_dist and not (Path(frontend_dist) / "index.html").is_file():
+        raise RuntimeError("FRONTEND_DIST must contain a built index.html.")
 
     def rate_limit(key: str, maximum: int):
         now = time.monotonic()
@@ -124,8 +138,19 @@ def create_app() -> FastAPI:
             response = await call_next(request)
         except Exception:
             response = JSONResponse(status_code=500, content={"detail": "The house lost its place. Please retry or start a new experience."})
-        response.headers["Cache-Control"] = "no-store"
+        path = request.url.path
+        if frontend_dist and path.startswith("/assets/") and response.status_code == 200:
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"  # Content-hashed build files.
+        elif frontend_dist and path.startswith("/narration/") and response.status_code in (200, 206):
+            response.headers["Cache-Control"] = "public, max-age=3600"
+        else:
+            response.headers["Cache-Control"] = "no-store"
         response.headers["X-Content-Type-Options"] = "nosniff"
+        if frontend_dist:  # nginx sets these itself in the templated deployment.
+            for name, value in SECURITY_HEADERS.items():
+                response.headers[name] = value
+            if deployment_mode != "local":
+                response.headers["Strict-Transport-Security"] = "max-age=31536000"
         response.headers["X-Request-ID"] = request_id
         if response.status_code >= 400:
             route = request.scope.get("route")
@@ -163,6 +188,10 @@ def create_app() -> FastAPI:
                     if s.memory.persona != body.persona:
                         raise HTTPException(409, "This request identifier was already used with another persona.")
                     return view(s)
+            mine = sorted((s for s in sessions.values() if s.owner == user), key=lambda s: s.created)
+            for old in mine[:max(0, len(mine) - MAX_SESSIONS_PER_OWNER + 1)]:
+                old.audio_stop.set()
+                del sessions[old.id]
             if len(sessions) >= MAX_SESSIONS:
                 raise HTTPException(503, "The house is full. Please return later.")
             s = StoredSession(uuid4(), user, Memory(body.persona), time.time(), body.request_id)
@@ -269,6 +298,8 @@ def create_app() -> FastAPI:
         return StreamingResponse(chunks(), media_type="application/x-ndjson",
                                  headers={"X-Voice-Mode": "live", "X-Accel-Buffering": "no"})
 
+    if frontend_dist:
+        app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="frontend")
     return app
 
 

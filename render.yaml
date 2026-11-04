@@ -1,0 +1,21 @@
+# Render Blueprint: free, public, MOCK-ONLY demo (no AssemblyAI key, no live proxy token, no ledger).
+# JWT_SECRET is prompted at creation (sync: false). Render's generateValue is too short for the
+# app's 48-character production minimum; paste the output of:
+#   python -c "import secrets; print(secrets.token_urlsafe(48))"
+services:
+  - type: web
+    name: blackthorn-house
+    runtime: docker
+    plan: free
+    numInstances: 1          # Stories are process-local: exactly one instance, one worker.
+    healthCheckPath: /healthz
+    autoDeploy: false
+    envVars:
+      - key: DEPLOYMENT_MODE
+        value: public
+      - key: VOICE_PROVIDER
+        value: mock
+      - key: STORY_PROVIDER
+        value: demo
+      - key: JWT_SECRET
+        sync: false
