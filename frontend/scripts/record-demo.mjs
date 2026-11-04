@@ -29,11 +29,13 @@ await context.addInitScript(() => {
   window.__audio = [];
   const original = HTMLMediaElement.prototype.play;
   HTMLMediaElement.prototype.play = function () {
-    const el = /** @type {HTMLMediaElement & { __logged?: boolean }} */ (this); // eslint-disable-line @typescript-eslint/no-this-alias
+    const el = /** @type {HTMLMediaElement & { __logged?: boolean, __src?: string }} */ (this); // eslint-disable-line @typescript-eslint/no-this-alias
     if (!el.__logged) {
       el.__logged = true;
-      el.addEventListener('playing', () => window.__audio.push({ src: el.src, kind: 'start', at: Date.now(), offset: el.currentTime }));
-      for (const kind of ['pause', 'ended']) el.addEventListener(kind, () => window.__audio.push({ src: el.src, kind: 'stop', at: Date.now() }));
+      // The app clears src right after pause() on a scene change, so remember the URL that started playing.
+      el.addEventListener('playing', () => { el.__src = el.src; window.__audio.push({ src: el.src, kind: 'start', at: Date.now(), offset: el.currentTime }); });
+      // Scene changes stop playback with pause() + removeAttribute('src') + load(), which surfaces as emptied/abort.
+      for (const kind of ['pause', 'ended', 'emptied', 'abort']) el.addEventListener(kind, () => { if (el.__src) window.__audio.push({ src: el.__src, kind: 'stop', at: Date.now() }); });
     }
     return original.call(this);
   };
@@ -131,6 +133,7 @@ await caption('BLACKTHORN HOUSE · built with AssemblyAI-TTS-1', 'github.com/Ven
 await wait(4500);
 
 const events = await page.evaluate(() => window.__audio);
+const endAt = Date.now();
 const videoPath = await page.video().path();
 await context.close(); await browser.close();
 
@@ -146,6 +149,13 @@ for (const event of events) {
       offset: start.offset, durationMs: event.at - start.at });
   }
 }
+for (const [src, start] of open) { // Still playing when the capture ended.
+  segments.push({ file: path.join(publicDir, decodeURIComponent(new URL(src).pathname)), startMs: Math.max(0, start.at - t0),
+    offset: start.offset, durationMs: endAt - start.at });
+}
+segments.sort((a, b) => a.startMs - b.startMs);
+// The app plays one narration at a time: never let a segment overlap the next one.
+segments.forEach((s, i) => { const next = segments[i + 1]; if (next) s.durationMs = Math.min(s.durationMs, next.startMs - s.startMs); });
 const video = path.join(out, 'blackthorn-demo-video-only.webm'); renameSync(videoPath, video);
 const output = path.join(out, draft ? 'blackthorn-demo-DRAFT.mp4' : 'blackthorn-demo.mp4');
 const inputs = ['-y', '-i', video]; const filters = [];
@@ -162,5 +172,6 @@ if (segments.length) {
 } else args.push('-map', '0:v', '-an');
 args.push('-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', output);
 execFileSync(ffmpeg, args, { stdio: 'inherit' });
+writeFileSync(path.join(out, 'demo-audio-events.json'), JSON.stringify(events.map(e => ({ ...e, at: e.at - t0 })), null, 2));
 writeFileSync(path.join(out, 'demo-audio-segments.json'), JSON.stringify({ draft, segments: segments.map(s => ({ ...s, file: path.relative(publicDir, s.file) })) }, null, 2));
 console.log(JSON.stringify({ output, draft, realAudioSegments: segments.length, files: readdirSync(out) }, null, 2));
