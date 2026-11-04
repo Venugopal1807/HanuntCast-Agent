@@ -26,6 +26,8 @@ The repository is public and `main` contains the release, so Render can build it
 
 Render's free tier sleeps after about 15 idle minutes, and the first request then takes roughly a minute while the instance starts. The frontend's 15-second request deadline will report a slow first response; **Retry** works once the instance is awake. Before judging, open the site yourself to wake it, or point a free uptime monitor at `/healthz` every 10 minutes (one free service fits within Render's monthly free hours).
 
+The repository includes `.github/workflows/keep-awake.yml`, which pings `/healthz` every 10 minutes until 15 Nov 2026 and then disables itself. To turn it on, set the repository variable `RENDER_URL` to the service URL under Settings → Secrets and variables → Actions → Variables. Until that variable is set, every run exits without doing anything. GitHub can start scheduled runs late, so a rare cold start is still possible.
+
 ### Option B: Hugging Face Spaces (free Docker Space)
 
 Create a Docker Space, set the Space secret `JWT_SECRET` (same generator) and the variable `PORT=7860`, and push this repository (the Space's README needs `sdk: docker` and `app_port: 7860` front matter). Spaces sleep after about 48 hours without traffic. The app sends `frame-ancestors 'none'`, so share the direct `https://<space>.hf.space` URL rather than the embedded huggingface.co page.
