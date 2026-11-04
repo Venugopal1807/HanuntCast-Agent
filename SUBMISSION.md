@@ -51,16 +51,40 @@ Recording rules: capture system audio, keep the labels visible, and show no `.en
 5. Make the four Liberation choices; on the ending, play the narration and open **Your path remembered**.
 6. **Enter again** and pick the Skeptic to show the different voice and prose.
 
-## Submission links: fill before submitting
+## Submission form (Google Form from the 28 Oct Discord announcement)
 
-- GitHub repository: https://github.com/Venugopal1807/HanuntCast-Agent (public; `main` contains the release)
-- Public demo: `<PUBLIC_DEMO_URL>`
-- Demo video: `<DEMO_VIDEO_URL>`
-- Release commit: `<RELEASE_COMMIT_SHA>`
+Form: https://forms.gle/XCW2RdZGbarVLnKEA. Its header still says "(Oct 17 to Oct 24)", but the organizer reopened it on 28 Oct. The older 16 Oct link is not the one to use.
 
-## Deadline (checked 2026-11-04)
+| Form field | What to enter |
+| --- | --- |
+| What are you submitting? * | The project option |
+| Team or submitter name * | Your name (fill in yourself) |
+| Primary contact email * | Your email (fill in yourself) |
+| Discord username * | Your Discord username (fill in yourself) |
+| Team members | Leave blank if you're a solo submitter |
+| Twitter or LinkedIn | Your profile links, plus the X and LinkedIn post links once posted |
+| Project name | BLACKTHORN HOUSE |
+| Tagline | The one-line pitch above |
+| Project description (required for projects) | The short description above, then the "How AssemblyAI is integrated" bullets |
+| Demo video link (required for projects) | `<DEMO_VIDEO_URL>` (YouTube unlisted, Loom or Drive) |
+| Source code repository link (required for projects) | https://github.com/Venugopal1807/HanuntCast-Agent |
+| Tech stack | AssemblyAI-TTS-1 (HTTP `/v1/speech` and WebSocket streaming), voices aai-george, aai-jane and aai-audrey; FastAPI, Pydantic, PyJWT, SQLite spending ledger; React 19, TypeScript, Vite, Zod, Web Audio; Docker on Render |
+| Live demo link | https://blackthorn-house.onrender.com (free tier: the first visit after idling can take about 50 s) |
+| Bugs / Feedback | Optional |
+| File upload (max 10 MB) | Optional: a screenshot from `docs/` or `media/` |
 
-The official listing ([Voice AI Space event page](https://www.voiceaispace.com/events/voice-hackathon-week-hack-into-speech)) gives **Tue 27 Oct 2026 19:00 PDT → Sat 7 Nov 2026 11:00 PDT**. US daylight saving time ends on 1 Nov, so "PDT" on 7 Nov is ambiguous: 11:00 PDT = 18:00 UTC = **23:30 IST, 7 Nov**; 11:00 PST = 00:30 IST, 8 Nov. **Use 23:30 IST on 7 Nov as the hard cutoff, and aim to submit on 6 Nov.** The submission form, judging criteria and social-bonus rules are announced on the organizer's Discord ([invite](https://discord.com/invite/P7sKN78EsE)), which this review could not access. Prizes per the Luma page: $2,000 across 20 winners.
+## Deadline and scoring notes (checked 2026-11-05)
+
+- **Deadline:**
+  - Discord says only "7th November".
+  - The official [Luma page](https://luma.com/msrwwjby) ends at "Nov 8, 12:30 AM GMT+5:30", which is 7 Nov 19:00 UTC.
+  - The Voice AI Space listing gives "Sat 7 Nov 11:00 PDT", which is 23:30 IST on 7 Nov.
+  - **Treat 23:30 IST on 7 Nov as the cutoff, and submit on 6 Nov.**
+- **Judging:** no criteria are posted. The organizer's scoring hints on Discord:
+  - extra points for posting the project on LinkedIn and X tagging the organizer and AssemblyAI
+  - the project must use AssemblyAI
+  - multiple submissions are allowed
+- **Prizes:** $2,000 across 20 winners, paid as Visa gift cards.
 
 ## Narration runbook (run when the AssemblyAI balance is confirmed)
 
@@ -79,17 +103,17 @@ Each request is reserved first in `release-private/pregenerate-all.sqlite3` (ign
 
 ## Social posts (drafts; post from your own accounts)
 
-Confirm the organizer's handle on Discord before posting; it isn't verified here. AssemblyAI's handles are `@AssemblyAI` on X and AssemblyAI on LinkedIn.
+The organizer asked entrants to tag him (Harnoor) and AssemblyAI on both LinkedIn and X; posts that do get extra points. On X, `@iHarnoorSingh` appears in other entrants' posts, but the organizer hasn't stated it, so check his X profile before posting. On LinkedIn, type @ and pick AssemblyAI and Harnoor from the suggestions. The organizer gave no hashtags.
 
 **X:**
-> I built BLACKTHORN HOUSE for #HackIntoSpeech: an interactive horror story told aloud by @AssemblyAI TTS-1 voices. Pick one of three narrators, make four choices, and hear one of 189 personalized endings. 🕯️
-> Demo: <PUBLIC_DEMO_URL> · Code: https://github.com/Venugopal1807/HanuntCast-Agent
+> I built BLACKTHORN HOUSE for @AssemblyAI's Voice Hackathon Week (cc @iHarnoorSingh): an interactive horror story told aloud by AssemblyAI TTS-1 voices. Pick one of three narrators, make four choices, and hear one of 189 personalized endings. 🕯️
+> Demo: https://blackthorn-house.onrender.com · Code: https://github.com/Venugopal1807/HanuntCast-Agent
 
 **LinkedIn:**
-> For AssemblyAI's Voice Hackathon Week, I built BLACKTHORN HOUSE: a listening-first interactive horror story narrated by AssemblyAI's new TTS-1 model.
+> For AssemblyAI's Voice Hackathon Week (thanks, Harnoor, for running it), I built BLACKTHORN HOUSE: a listening-first interactive horror story narrated by AssemblyAI's new TTS-1 model.
 > Three narrators (George, Jane and Audrey) tell the same haunted house in very different voices. Four decisions shape the night, and every ending (there are 189 personalized epilogues) remembers your path.
 > Under the hood: React + FastAPI, a deterministic story engine, narration pre-generated with TTS-1 and verified against the exact scene text, plus a credit-safe live WebSocket streaming mode behind a spending ledger.
-> Demo: <PUBLIC_DEMO_URL> · Video: <DEMO_VIDEO_URL> · Code: https://github.com/Venugopal1807/HanuntCast-Agent
+> Demo: https://blackthorn-house.onrender.com · Video: <DEMO_VIDEO_URL> · Code: https://github.com/Venugopal1807/HanuntCast-Agent
 > #AssemblyAI #VoiceAI #TextToSpeech #Hackathon
 
 ## Remaining manual actions

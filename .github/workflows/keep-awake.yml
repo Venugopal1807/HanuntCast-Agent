@@ -1,12 +1,16 @@
 # Keeps the free Render demo awake through judging (Render sleeps after ~15 idle minutes).
 # Pings GET /healthz only: free, unauthenticated, no AssemblyAI call. Needs the repository
 # variable RENDER_URL (Settings → Secrets and variables → Actions → Variables), e.g.
-# https://blackthorn-house.onrender.com. After 15 Nov 2026 (UTC) the workflow disables itself.
+# https://blackthorn-house.onrender.com.
+# Window: through 15 Nov 2026, India time (IST, UTC+5:30). The last ping is the 18:27 UTC run on
+# 15 Nov (23:57 IST); the first run on 16 Nov IST (18:37 UTC on 15 Nov) disables this workflow.
 name: Keep Render demo awake
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # GitHub may start scheduled runs late; 10 min leaves margin under 15.
+    # Minutes 07, 17, 27, 37, 47, 57 of every hour (UTC): off the busy top of the hour, 10-minute
+    # spacing leaves margin under Render's 15-minute idle timer if GitHub starts a run late.
+    - cron: "7-59/10 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -21,14 +25,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
-      - name: Ping /healthz until 15 Nov 2026
+      - name: Ping /healthz through 15 Nov 2026 (IST)
         env:
           RENDER_URL: ${{ vars.RENDER_URL }}
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          if [ "$(date -u +%Y%m%d)" -gt 20261115 ]; then
-            echo "Keep-awake window ended; disabling this workflow."
+          today_ist="$(TZ=Asia/Kolkata date +%Y%m%d)"
+          echo "Today in IST: ${today_ist}"
+          if [ "${today_ist}" -gt 20261115 ]; then
+            echo "Keep-awake window ended (15 Nov 2026 IST); disabling this workflow."
             gh workflow disable keep-awake.yml
             exit 0
           fi
@@ -37,5 +43,6 @@ jobs:
             exit 0
           fi
           # A sleeping free instance can take about a minute to start.
-          curl -fsS --max-time 100 --retry 2 --retry-delay 15 "${RENDER_URL%/}/healthz"
-          echo
+          code="$(curl -sS -o body.txt -w '%{http_code}' --max-time 100 --retry 2 --retry-delay 15 "${RENDER_URL%/}/healthz")"
+          echo "GET /healthz -> HTTP ${code}: $(head -c 200 body.txt)"
+          [ "${code}" = "200" ]
