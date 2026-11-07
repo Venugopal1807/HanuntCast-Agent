@@ -1,43 +1,65 @@
 # BLACKTHORN HOUSE
 
-**An interactive horror story told aloud by AssemblyAI voices. Choose your narrator, make four decisions, hear your ending.**
+**A haunted-house story you listen to. Pick a narrator, make four choices and hear the ending your choices earned. Every scene is read aloud by an AssemblyAI voice.**
 
 ![Blackthorn House landing page](docs/media/landing.png)
 
-> **Live demo:** _not yet deployed — link will be added here_ · **Demo video:** _not yet recorded_
+> **Live demo:** https://blackthorn-house.onrender.com · **Demo video:** _link coming soon_
+>
+> The demo runs on Render's free tier. If nobody has visited for a while, the first page load can take about 50 seconds.
 
-## What you can do
+## What it is
 
-- **Pick who tells the story.** The Archivist (voice *George*), the Skeptic (*Jane*) and the Medium (*Audrey*) narrate the same haunted house from three very different perspectives. Narrator cards play real, pre-generated AssemblyAI voice samples (today: the Medium; George and Jane are pending one approved generation run).
-- **Listen, then decide.** Four chapters, each with audio, original artwork and a full transcript. Every decision changes what comes next: the key stays in your coat, a promise can be kept or broken, an open window becomes your way out.
-- **Hear your ending.** Liberation, Escape or Inheritance. The epilogue remembers your whole path: **189 personalized epilogues** (63 legal routes × 3 narrators), all written by hand.
+Blackthorn House has stood empty for forty years. Tonight a lamp is burning upstairs, and you've received an invitation dated tomorrow, written in your own handwriting.
 
-![Narrator selection with a real AssemblyAI voice sample](docs/media/narrators.png)
+You go inside with one of three narrators. In each of four chapters you listen to the scene (or read the transcript), then choose what to do next. The house keeps track of what you did, and the ending reflects it.
+
+## What you do
+
+1. **Choose a narrator.** Each narrator card has a short voice sample so you can hear them before you choose.
+2. **Listen, then decide.** Each chapter has narration, original artwork, a full transcript and three choices. Take the brass key or study the girl's portrait. Promise to help her or read the black ledger. Untie her ribbon, ring the bell or unbolt the garden window.
+3. **Hear your ending.** There are three endings: Liberation, The Survivor and The Inheritance. Each epilogue mentions the specific things you did on the way. There are 189 hand-written epilogues in total, one for every legal route (63) with every narrator (3).
+
+![Narrator selection with AssemblyAI voice samples](docs/media/narrators.png)
+
+## Why three narrators
+
+The narrators walk through the same house and see the same evidence, but each one reads it differently.
+
+| Narrator | Voice | How they tell it |
+| --- | --- | --- |
+| **The Archivist** | George (`aai-george`) | Precise and patient. Treats the house as a record that someone has been editing. |
+| **The Skeptic** | Jane (`aai-jane`) | Dry and rational. Keeps looking for a sensible explanation as it slips away. |
+| **The Medium** | Audrey (`aai-audrey`) | Intimate and intuitive. Senses the ghost girl long before seeing her. |
+
+Each narrator has their own text for every scene and ending, so playing again with a different narrator gives you different words and a different voice, not just a different reading.
 
 ## How AssemblyAI is used
 
-BLACKTHORN HOUSE is built around **AssemblyAI-TTS-1** text-to-speech. Each narrator maps to one AssemblyAI voice (`aai-george`, `aai-jane`, `aai-audrey`), and the audio always speaks the exact text shown on screen.
+All narration is spoken by **AssemblyAI-TTS-1**, AssemblyAI's text-to-speech model. Each narrator uses one AssemblyAI voice. The audio always speaks the exact text shown on screen.
 
-| Mode | What happens | Where |
-| --- | --- | --- |
-| **Pre-generated (public demo)** | Narration was synthesized once, ahead of time, with the HTTP `/v1/speech` endpoint and is served as static files. Each file is keyed by a SHA-256 hash of narrator + exact scene text, so it can only play for the prose it speaks. Always labeled **ASSEMBLYAI · PRE-GENERATED**. | `backend/tools/pregenerate_narration.py`, `frontend/src/pregenerated.ts` |
-| **Live streaming (restricted)** | The backend opens AssemblyAI's TTS WebSocket (`Begin → Generate → Flush → Audio → FlushDone → Terminate`) and streams PCM16 frames to the browser as NDJSON. Web Audio schedules each chunk as it arrives. Pause, mute, cancel and cache-only replay are all supported. | `backend/app/assemblyai.py`, `frontend/src/pcm.ts`, `frontend/src/useAudio.ts` |
-| **Fallback** | Scenes without a recording use a locally generated soundscape (and, optionally, your device's speech voice). Always labeled **MOCK AUDIO**; never presented as AssemblyAI speech. | `backend/app/voice.py` |
+**On the public site, narration is pre-generated.** I ran every unique scene and ending text through AssemblyAI's `/v1/speech` endpoint once, ahead of time. That's 246 recordings (82 per voice), about 2 hours 17 minutes of audio. The files are served as static MP3s, so visitors don't trigger any AssemblyAI requests and nobody's credits are spent. The player labels this audio **ASSEMBLYAI · PRE-GENERATED**.
 
-**Credit safety.** The API key stays on the server and never reaches the browser. The public deployment refuses to start with live TTS enabled. Live streaming requires a JWT, a separate private proxy token, and an existing SQLite ledger that reserves every attempt and character *before* any network call. There are no automatic paid retries, and replay never pays twice.
+**The audio can't get out of sync with the text.** Each recording is filed under a SHA-256 hash of the narrator and the exact scene text. The browser computes the same hash before playing, so a recording only plays for the text it actually speaks.
 
-## What makes it different
+**There's also a live streaming mode, but it's restricted.** The backend can stream narration from AssemblyAI's TTS WebSocket (`Begin → Generate → Flush → Audio → FlushDone → Terminate`) and play the PCM chunks in the browser as they arrive, with pause, mute, cancel and cache-only replay. Each stream costs credits, so this mode needs a separate access token and a spending ledger that reserves every request before it is sent. It is turned off on the public deployment. I tested it with one real stream (27 audio chunks played in the browser).
 
-- **Listening first.** The player is the centerpiece of every scene; the transcript is one tap away.
-- **The voice is the character.** Three narrators who read the same evidence in three ways, each with an AssemblyAI voice.
-- **Consequences that are remembered.** A deterministic story engine with server-owned memory. No LLM, so every route is tested and the narration always matches what you see.
-- **Honest audio.** Every playback says what it is: live, pre-generated AssemblyAI, or demo soundscape.
+**Fallback.** If a scene ever has no matching recording, the player uses a locally generated soundscape labeled **MOCK AUDIO**. It is never presented as AssemblyAI speech.
 
-The app never listens to you. There is no microphone or speech recognition; you choose by tapping or clicking.
+The app doesn't listen to you. It has no microphone access and no speech recognition, and you choose by tapping or clicking. The story is hand-written, not generated by an LLM, so every route can be tested and the narration always matches the text.
+
+| Part | Where |
+| --- | --- |
+| Pre-generation tool | `backend/tools/pregenerate_narration.py`, `backend/tools/verify_narration.py` |
+| Playback of recordings | `frontend/src/pregenerated.ts`, `frontend/public/narration/manifest.json` |
+| Live streaming (restricted) | `backend/app/assemblyai.py`, `backend/app/budget.py`, `frontend/src/pcm.ts`, `frontend/src/useAudio.ts` |
+| Story engine | `backend/app/story.py`, `backend/app/narration.py` |
+
+**Keeping credits safe.** The API key stays on the server and never reaches the browser. The public deployment refuses to start if live TTS is turned on. Live streaming needs a JWT, a separate private proxy token and an existing SQLite ledger that reserves every attempt and its character count *before* the network call. Failed requests are never retried automatically, and replaying a finished stream doesn't pay again.
 
 ## Run it locally
 
-Requires Python 3.11+ (validated on 3.14) and Node.js 20.19+ (validated on 24). No API key is needed.
+You need Python 3.11+ (tested on 3.14) and Node.js 20.19+ (tested on 24). No API key is needed.
 
 ```powershell
 # Windows PowerShell, from the repository root
@@ -55,9 +77,11 @@ npm.cmd ci
 npm.cmd run dev    # open http://127.0.0.1:5173
 ```
 
-On macOS/Linux use `python3 -m venv .venv`, `.venv/bin/python …` and `npm`. Set `VOICE_PROVIDER=mock` explicitly if your private `.env` selects live TTS; otherwise live playback is (correctly) refused without the restricted proxy token and ledger.
+On macOS or Linux, use `python3 -m venv .venv`, `.venv/bin/python …` and `npm`. Set `VOICE_PROVIDER=mock` explicitly if your private `.env` selects live TTS. Otherwise live playback is refused, as it should be, because there's no restricted proxy token or ledger.
 
-Run everything as production does, in one process:
+The pre-generated recordings are part of the repository, so the local app plays the same AssemblyAI narration as the public site.
+
+To run everything in one process, the way production does:
 
 ```powershell
 cd frontend; npm.cmd run build; cd ..
@@ -66,15 +90,24 @@ $env:JWT_SECRET = .\.venv\Scripts\python.exe -c "import secrets; print(secrets.t
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --port 8000 --workers 1
 ```
 
-## Status (2026-11-05)
+## Status
 
-- **Working:** full story on desktop and mobile, with three narrators and three endings. Every scene and all 189 personalized epilogues are narrated with real, pre-generated AssemblyAI-TTS-1 audio: 246 recordings, one per unique (narrator, text) pair, in George, Jane and Audrey's voices. The labeled mock fallback plays only if a recording can't be matched. Live at https://blackthorn-house.onrender.com in a hardened single-container build. See [VALIDATION.md](VALIDATION.md) for exact test results.
-- **Verified earlier with real credits (2026-10-29):** one HTTP synthesis (Audrey, 51 characters, 3.52 s WAV, the sample shipped here) and one WebSocket stream (27 PCM chunks played incrementally in the browser).
-- **Narration run (2026-11-05):** 246 HTTP requests and 139,550 characters, billed exactly as planned with no errors or retries. Every file is checked offline against its voice and text hash and decoded in Edge.
-- **Limits:** stories live in memory on one worker and expire after an hour; a restart or reload starts over. One scenario, four decisions.
+- **Working:** the full story on desktop and mobile, with three narrators and three endings. Every scene and all 189 epilogues have real AssemblyAI-TTS-1 narration. That's 246 recordings, one for each unique narrator and text pair. Live at https://blackthorn-house.onrender.com as a single hardened container.
+- **Narration run:** 246 requests and 139,550 characters, billed exactly as planned, with no errors or retries. Every file is checked offline against its voice and text hash, and every file was decoded in a real browser (Edge).
+- **Earlier live tests with real credits:** one HTTP synthesis and one WebSocket stream (27 PCM chunks played in the browser as they arrived).
+- **Limits:** stories are kept in memory on one server process and expire after an hour, so a restart or a page reload starts over. There's one scenario with four decisions.
 
-## More
+## Tests
 
-[DEPLOYMENT.md](DEPLOYMENT.md) (free hosting, security model, restricted live mode) · [VALIDATION.md](VALIDATION.md) (test evidence) · [SUBMISSION.md](SUBMISSION.md) (hackathon description, demo script) · [docs/](docs/) (engineering history)
+No API key is needed, and no test makes a paid request.
+
+```powershell
+$env:VOICE_PROVIDER='mock'; $env:HAUNTCAST_LIVE_SMOKE='0'; $env:HAUNTCAST_LIVE_STREAM_SMOKE='0'
+.\.venv\Scripts\python.exe -m pytest backend/tests -q      # backend
+.\.venv\Scripts\python.exe backend\tools\verify_narration.py --tier all   # every recording vs. its voice and text hash
+cd frontend
+npm.cmd test; npm.cmd run typecheck; npm.cmd run lint   # Vitest, TypeScript, ESLint
+npm.cmd run test:e2e                                    # Playwright, desktop and mobile (Microsoft Edge)
+```
 
 React 19 · TypeScript · Vite · Zod · Web Audio · Python · FastAPI · Pydantic · PyJWT · httpx · websockets · SQLite
