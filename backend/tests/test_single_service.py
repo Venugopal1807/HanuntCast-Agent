@@ -85,3 +85,53 @@ def test_one_owner_cannot_fill_the_shared_session_cap(public):
     other = auth(public)
     assert public.post("/api/sessions", json={"persona": "medium", "request_id": str(uuid4())}, headers=other).status_code == 200
     assert len(public.app.state.sessions) == main.MAX_SESSIONS_PER_OWNER + 1
+
+
+@pytest.fixture
+def edge(monkeypatch, public):
+    monkeypatch.setenv("CLIENT_IP_HEADER", "CF-Connecting-IP")
+    with TestClient(create_app()) as client:
+        yield client
+
+
+def mint(client, ip=None, forwarded=None):
+    headers = {}
+    if ip:
+        headers["CF-Connecting-IP"] = ip
+    if forwarded:
+        headers["X-Forwarded-For"] = forwarded
+    return client.post("/api/auth", headers=headers)
+
+
+def test_spoofed_forwarded_for_does_not_bypass_the_auth_limit(edge):
+    codes = [mint(edge, "198.51.100.7", f"10.0.{i}.1").status_code for i in range(21)]
+    assert codes[:20] == [200] * 20 and codes[20] == 429
+    assert mint(edge, "198.51.100.8").status_code == 200  # A different edge-reported client has its own bucket.
+
+
+def test_ipv6_clients_share_a_bucket_per_64(edge):
+    codes = [mint(edge, f"2001:db8:1:2::{i:x}").status_code for i in range(21)]
+    assert codes[20] == 429
+    assert mint(edge, "2001:db8:1:3::1").status_code == 200
+
+
+def test_invalid_edge_header_never_creates_a_new_bucket(edge):
+    codes = [mint(edge, f"not-an-ip-{i}").status_code for i in range(21)]
+    assert codes[20] == 429
+
+
+def test_full_house_evicts_the_flooding_source_not_other_visitors(monkeypatch, edge):
+    monkeypatch.setattr(main, "MAX_SESSIONS", 6)
+    body = lambda: {"persona": "archivist", "request_id": str(uuid4())}  # noqa: E731
+    visitor = {"Authorization": "Bearer " + mint(edge, "203.0.113.5").json()["access_token"], "CF-Connecting-IP": "203.0.113.5"}
+    kept = edge.post("/api/sessions", json=body(), headers=visitor).json()["id"]
+    for _ in range(4):  # Fresh tokens from one address, each under its per-owner cap.
+        token = mint(edge, "198.51.100.9").json()["access_token"]
+        flood = {"Authorization": "Bearer " + token, "CF-Connecting-IP": "198.51.100.9"}
+        for _ in range(3):
+            assert edge.post("/api/sessions", json=body(), headers=flood).status_code == 200
+    assert len(edge.app.state.sessions) == 6
+    assert edge.get(f"/api/sessions/{kept}", headers=visitor).status_code == 200
+    late = {"Authorization": "Bearer " + mint(edge, "192.0.2.44").json()["access_token"], "CF-Connecting-IP": "192.0.2.44"}
+    assert edge.post("/api/sessions", json=body(), headers=late).status_code == 200
+    assert edge.get(f"/api/sessions/{kept}", headers=visitor).status_code == 200

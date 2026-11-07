@@ -11,7 +11,9 @@ FROM python:3.14-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
     DEPLOYMENT_MODE=public VOICE_PROVIDER=mock STORY_PROVIDER=demo \
     FRONTEND_DIST=/app/frontend/dist PORT=8000 \
-    HAUNTCAST_LIVE_SMOKE=0 HAUNTCAST_LIVE_STREAM_SMOKE=0
+    HAUNTCAST_LIVE_SMOKE=0 HAUNTCAST_LIVE_STREAM_SMOKE=0 \
+    CLIENT_IP_HEADER=cf-connecting-ip
+# Render serves through Cloudflare, which sets CF-Connecting-IP; rate limits key on it, not X-Forwarded-For.
 WORKDIR /app
 COPY backend/requirements.lock.txt backend/
 RUN pip install --no-cache-dir -r backend/requirements.lock.txt

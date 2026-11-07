@@ -1,12 +1,13 @@
 import asyncio
 import json
 import copy
+import ipaddress
 import logging
 import os
 import secrets
 import threading
 import time
-from collections import deque
+from collections import Counter, deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from uuid import UUID, uuid4
@@ -47,6 +48,7 @@ class StoredSession:
     memory: Memory
     created: float
     start_request: UUID
+    source: str = "unknown"
     audio_stop: threading.Event = field(default_factory=threading.Event)
     audio_active: bool = False
     audio_requests: set = field(default_factory=set)
@@ -85,6 +87,19 @@ def create_app() -> FastAPI:
     frontend_dist = os.getenv("FRONTEND_DIST", "")
     if frontend_dist and not (Path(frontend_dist) / "index.html").is_file():
         raise RuntimeError("FRONTEND_DIST must contain a built index.html.")
+    # Header set by the edge proxy itself (e.g. CF-Connecting-IP behind Cloudflare). X-Forwarded-For is not
+    # used for limits: some platforms append to it, so its leftmost entry is whatever the client sent.
+    client_ip_header = os.getenv("CLIENT_IP_HEADER", "").strip().lower()
+
+    def client_key(request: Request) -> str:
+        value = request.headers.get(client_ip_header, "").strip() if client_ip_header else ""
+        try:
+            address = ipaddress.ip_address(value or (request.client.host if request.client else ""))
+        except ValueError:
+            return "unknown"
+        if address.version == 6:  # One host usually controls a whole /64.
+            return str(ipaddress.ip_network(f"{address}/64", strict=False))
+        return str(address)
 
     def rate_limit(key: str, maximum: int):
         now = time.monotonic()
@@ -161,7 +176,7 @@ def create_app() -> FastAPI:
     @app.post("/api/auth", response_model=AuthView)
     def authenticate(request: Request):
         # Public authentication bootstrap grants only an anonymous demo identity.
-        rate_limit("ip:" + (request.client.host if request.client else "unknown"), 20)
+        rate_limit("ip:" + client_key(request), 20)
         now = int(time.time())
         token = jwt.encode({"sub": str(uuid4()), "iat": now, "exp": now + TTL,
                             "aud": "hauntcast", "iss": "hauntcast-demo"}, secret, algorithm="HS256")
@@ -180,7 +195,8 @@ def create_app() -> FastAPI:
                 "live_ttfa_ms": None, "reason": "Live requests use AssemblyAI-TTS-1; credentials are not tested until playback." if voice.mode == "live" else "Local mock audio; no AssemblyAI requests."}
 
     @app.post("/api/sessions", response_model=SessionView)
-    def start(body: StartRequest, user: str = Depends(owner)):
+    def start(body: StartRequest, request: Request, user: str = Depends(owner)):
+        source = client_key(request)
         with lock:
             prune()
             for s in sessions.values():
@@ -193,8 +209,14 @@ def create_app() -> FastAPI:
                 old.audio_stop.set()
                 del sessions[old.id]
             if len(sessions) >= MAX_SESSIONS:
-                raise HTTPException(503, "The house is full. Please return later.")
-            s = StoredSession(uuid4(), user, Memory(body.persona), time.time(), body.request_id)
+                # Reclaim from the source holding the most stories instead of refusing everyone, so one
+                # client minting tokens only evicts its own sessions.
+                counts = Counter(s.source for s in sessions.values())
+                busiest = max(counts, key=counts.__getitem__)
+                victim = min((s for s in sessions.values() if s.source == busiest), key=lambda s: s.created)
+                victim.audio_stop.set()
+                del sessions[victim.id]
+            s = StoredSession(uuid4(), user, Memory(body.persona), time.time(), body.request_id, source)
             sessions[s.id] = s
             return view(s)
 
