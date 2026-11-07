@@ -1,4 +1,4 @@
-"""Targeted independent-review regressions; all provider traffic is simulated."""
+"""Regression tests for code-review fixes; all provider traffic is simulated."""
 import json
 from uuid import uuid4
 

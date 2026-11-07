@@ -1,11 +1,11 @@
-// Records the 60–90 s judge demo from the real running app and mixes the REAL AssemblyAI files
+// Records the 60–90 s demo video from the real running app and mixes the REAL AssemblyAI files
 // that actually played into the soundtrack (the browser's own audio output is not captured).
 // Final mode refuses to record a scene that would fall back to MOCK AUDIO.
 //
 //   node scripts/record-demo.mjs <base-url> <out-dir> <ffmpeg-path> [--draft]
 //
 // --draft lets the pipeline run before scene narration exists; it captions that clearly.
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, renameSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -41,10 +41,15 @@ await context.addInitScript(() => {
   };
 });
 const page = await context.newPage();
+const problems = [];
+page.on('console', m => { if (m.type() === 'error') problems.push(`console: ${m.text()}`); });
+page.on('pageerror', e => problems.push(`pageerror: ${e.message}`));
+page.on('response', r => { if (r.status() >= 400) problems.push(`http ${r.status()}: ${new URL(r.url()).pathname}`); });
 const t0 = Date.now(); // Video timeline origin (recording starts with the page).
 const wait = ms => page.waitForTimeout(ms);
-async function caption(text, sub = '') {
-  await page.evaluate(([text, sub]) => {
+// 'center' sits in the header band; 'right' clears the narrator page heading, which the app scrolls to the top.
+async function caption(text, sub = '', align = 'center') {
+  await page.evaluate(([text, sub, align]) => {
     let el = document.getElementById('demo-caption');
     if (!el) {
       el = document.createElement('div'); el.id = 'demo-caption'; el.setAttribute('aria-hidden', 'true');
@@ -53,9 +58,10 @@ async function caption(text, sub = '') {
         + 'font:600 22px "Segoe UI",system-ui,sans-serif;color:#f1ecfb;pointer-events:none;transition:opacity .25s';
       document.body.appendChild(el);
     }
+    Object.assign(el.style, align === 'right' ? { left: 'auto', right: '24px', transform: 'none' } : { left: '50%', right: 'auto', transform: 'translateX(-50%)' });
     el.innerHTML = text ? `${text}${sub ? `<div style="font-weight:400;font-size:15px;color:#c9c2dc;margin-top:4px">${sub}</div>` : ''}` : '';
     el.style.opacity = text ? '1' : '0';
-  }, [text, sub]);
+  }, [text, sub, align]);
 }
 async function settle() { await page.locator('#narration:not([data-recording="checking"])').waitFor(); }
 async function narrate(ms, label, focus = null) {
@@ -80,22 +86,30 @@ async function choose(label) {
   await page.evaluate(() => window.scrollTo({ top: 0 }));
 }
 
+// Sync mark: the blank page turns black at a known wall-clock time. Locating that frame in the raw
+// capture gives the offset between the video timeline and Date.now(), which the audio mix relies on.
+await wait(800);
+const markAt = await page.evaluate(() => { document.documentElement.style.background = '#000'; return Date.now(); });
+await wait(800);
+
 // 1. Opening
 await page.goto(base);
 await page.getByText(/pre-generated AssemblyAI voice|Demo mode/).waitFor();
+// The capture starts on a blank page; the final cut begins once the landing page has rendered.
+const introMs = Math.max(0, Date.now() - t0 - 300);
 await caption('BLACKTHORN HOUSE', 'An interactive horror story told aloud by AssemblyAI-TTS-1 voices');
 await wait(5500);
 // 2. Three narrators, real samples
 await page.getByRole('button', { name: /Start the experience/ }).click();
-await caption('Three narrators · three AssemblyAI voices', 'George · Jane · Audrey');
+await caption('Three narrators · three AssemblyAI voices', 'George · Jane · Audrey', 'right');
 await wait(2500);
 for (const persona of ['archivist', 'skeptic', 'medium']) {
   const button = page.getByRole('button', { name: `Hear a pre-generated AssemblyAI sample of ${NAMES[persona]}` });
   if (!(await button.count())) {
     if (!draft) throw new Error(`Refusing final cut: no real voice sample for ${NAMES[persona]}.`);
-    await caption(`${NAMES[persona]} · ${VOICE[persona]}`, 'DRAFT · voice sample pending generation'); await wait(1500); continue;
+    await caption(`${NAMES[persona]} · ${VOICE[persona]}`, 'DRAFT · voice sample pending generation', 'right'); await wait(1500); continue;
   }
-  await caption(`${NAMES[persona]} · voice ${VOICE[persona]}`, 'Real AssemblyAI-TTS-1 sample, generated in advance');
+  await caption(`${NAMES[persona]} · voice ${VOICE[persona]}`, 'Real AssemblyAI-TTS-1 sample, generated in advance', 'right');
   await button.click();
   await wait(persona === 'medium' ? 3800 : 4500);
   const stop = page.getByRole('button', { name: `Stop a pre-generated AssemblyAI sample of ${NAMES[persona]}` });
@@ -119,7 +133,7 @@ await caption('The turning point', 'Untie the ribbon: Liberation becomes possibl
 await choose(/Untie the girl's ribbon/);
 await narrate(4000, 'chapter 4');
 // 5. Personalized ending
-await caption('One of 189 personalized endings', 'It remembers the name, the promise and the ribbon');
+await caption('One of 3 endings · 189 personalized epilogues', 'It remembers the name, the promise and the ribbon');
 await choose(/Lead the girl into the dawn/);
 await page.getByText('ENDING DISCOVERED / LIBERATION').waitFor();
 await page.evaluate(() => window.scrollTo({ top: 0 }));
@@ -157,6 +171,16 @@ segments.sort((a, b) => a.startMs - b.startMs);
 // The app plays one narration at a time: never let a segment overlap the next one.
 segments.forEach((s, i) => { const next = segments[i + 1]; if (next) s.durationMs = Math.min(s.durationMs, next.startMs - s.startMs); });
 const video = path.join(out, 'blackthorn-demo-video-only.webm'); renameSync(videoPath, video);
+const probe = spawnSync(ffmpeg, ['-hide_banner', '-nostats', '-t', '8', '-i', video, '-vf', 'signalstats,metadata=print:key=lavfi.signalstats.YAVG', '-an', '-f', 'null', '-'], { encoding: 'utf8' }).stderr;
+let markVideoMs = null; let pts = 0;
+for (const line of probe.split(/\r?\n/)) {
+  const time = /pts_time:([\d.]+)/.exec(line); if (time) pts = Number(time[1]);
+  const luma = /YAVG=([\d.]+)/.exec(line); if (luma && Number(luma[1]) < 60) { markVideoMs = pts * 1000; break; }
+}
+if (markVideoMs === null) throw new Error('Sync mark not found in the raw capture.');
+// Positive when the capture started after t0: an event at t0-relative T appears at video time T - lag.
+const lag = Math.round(markAt - t0 - markVideoMs);
+for (const s of segments) s.startMs = Math.max(0, s.startMs - lag);
 const output = path.join(out, draft ? 'blackthorn-demo-DRAFT.mp4' : 'blackthorn-demo.mp4');
 const inputs = ['-y', '-i', video]; const filters = [];
 segments.forEach((s, i) => {
@@ -166,12 +190,16 @@ segments.forEach((s, i) => {
     + `aresample=48000,afade=t=out:st=${Math.max(0, s.durationMs / 1000 - 0.25).toFixed(3)}:d=0.25,adelay=${s.startMs}|${s.startMs}[a${i}]`);
 });
 const args = [...inputs];
+const trim = Math.max(0, introMs - lag) / 1000; const end = (endAt - t0 - lag) / 1000;
+filters.unshift(`[0:v]fade=t=in:st=${trim.toFixed(3)}:d=0.5,fade=t=out:st=${(end - 0.8).toFixed(3)}:d=0.7[vout]`);
 if (segments.length) {
-  filters.push(`${segments.map((_, i) => `[a${i}]`).join('')}amix=inputs=${segments.length}:normalize=0,aformat=channel_layouts=stereo[aout]`);
-  args.push('-filter_complex', filters.join(';'), '-map', '0:v', '-map', '[aout]', '-c:a', 'aac', '-b:a', '160k');
-} else args.push('-map', '0:v', '-an');
+  filters.push(`${segments.map((_, i) => `[a${i}]`).join('')}amix=inputs=${segments.length}:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000,aformat=channel_layouts=stereo[aout]`);
+  args.push('-filter_complex', filters.join(';'), '-map', '[vout]', '-map', '[aout]', '-c:a', 'aac', '-b:a', '160k');
+} else args.push('-filter_complex', filters.join(';'), '-map', '[vout]', '-an');
+args.push('-ss', trim.toFixed(3));
 args.push('-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', output);
 execFileSync(ffmpeg, args, { stdio: 'inherit' });
 writeFileSync(path.join(out, 'demo-audio-events.json'), JSON.stringify(events.map(e => ({ ...e, at: e.at - t0 })), null, 2));
-writeFileSync(path.join(out, 'demo-audio-segments.json'), JSON.stringify({ draft, segments: segments.map(s => ({ ...s, file: path.relative(publicDir, s.file) })) }, null, 2));
-console.log(JSON.stringify({ output, draft, realAudioSegments: segments.length, files: readdirSync(out) }, null, 2));
+writeFileSync(path.join(out, 'demo-audio-segments.json'), JSON.stringify({ draft, captureLagMs: lag, trimmedIntroMs: Math.round(trim * 1000), segments: segments.map(s => ({ ...s, file: path.relative(publicDir, s.file) })) }, null, 2));
+writeFileSync(path.join(out, 'demo-page-problems.json'), JSON.stringify(problems, null, 2));
+console.log(JSON.stringify({ output, draft, realAudioSegments: segments.length, pageProblems: problems.length, files: readdirSync(out) }, null, 2));

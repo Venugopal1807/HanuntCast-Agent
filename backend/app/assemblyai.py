@@ -1,4 +1,4 @@
-"""AssemblyAI-TTS-1 protocol verified against official docs on 2026-10-28.
+"""AssemblyAI-TTS-1 adapter: HTTP synthesis and WebSocket streaming.
 
 https://www.assemblyai.com/docs/tts/message-frames
 No retries: a repeated paid request needs a fresh, explicit playback action.

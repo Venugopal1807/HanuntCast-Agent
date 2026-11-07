@@ -234,7 +234,7 @@ def test_live_http_once(monkeypatch):
     directory = Path(__file__).resolve().parents[2] / "test-results" / "assemblyai-http-smoke"
     directory.mkdir(parents=True, exist_ok=True)
     # Exclusive creation prevents an accidental rerun after a potentially billed attempt.
-    # Reset only with explicit authorization for another paid synthesis.
+    # Delete the marker deliberately before running another paid synthesis.
     with (directory / "attempt.json").open("x", encoding="utf-8") as attempt:
         json.dump({"voice": provider.voices["medium"], "input_characters": len(text)}, attempt)
 

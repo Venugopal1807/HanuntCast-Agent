@@ -1,4 +1,4 @@
-# Keeps the free Render demo awake through judging (Render sleeps after ~15 idle minutes).
+# Keeps the free Render instance warm (Render sleeps after ~15 idle minutes).
 # Pings GET /healthz only: free, unauthenticated, no AssemblyAI call. Needs the repository
 # variable RENDER_URL (Settings → Secrets and variables → Actions → Variables), e.g.
 # https://blackthorn-house.onrender.com.
